@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setLoading(true);
-      const res = await axios.post('/api/users/register', userData);
+      const res = await axios.post('/api/users/', userData);
       
       if (res.data) {
         localStorage.setItem('user', JSON.stringify(res.data));
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post('/api/users/login', { email, password });
       
       if (res.data) {
-        localStorage.setItem('user', JSON.stringify(res.data));
+        sessionStorage.setItem('user', JSON.stringify(res.data));
         setUser(res.data);
       }
       setLoading(false);
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
   // Logout user
   const logout = () => {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     setUser(null);
   };
 

@@ -1,8 +1,12 @@
-const list  = [1,2,3,4,5]
-let a = { sam:2 , mas:4 , sss:3}
-list.push(...list)
-let aa = [...[a]]
-console.log(aa)
+const a =[
+    { id: 0, name: 'Bob' },
+    { id: 1, name: 'Bob' },
+    { id: 2, name: 'Bob' }
+]
+
+const b = a.filter(item => item.id < 2)
+
+console.log(b)
 
 
 
@@ -28,7 +32,11 @@ console.log(aa)
 
 
 
-
+// const list  = [1,2,3,4,5]
+// let a = { sam:2 , mas:4 , sss:3}
+// list.push(...list)
+// let aa = [...[a]]
+// console.log(aa)
 
 // const users = [
 //   { id : { id: 0, name: 'Bob' } , Id : { id: 3, name: 'Bob' } },
