@@ -49,105 +49,105 @@ const ProductDetailPage = () => {
   
   // For development - sample data
   // Remove this when backend is connected
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      const sampleProduct = {
-        _id: id,
-        name: 'Premium Wireless Headphones',
-        description: 'Experience immersive sound with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.',
-        price: 149.99,
-        image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        category: 'Electronics',
-        brand: 'SoundMaster',
-        rating: 4.5,
-        numReviews: 127,
-        countInStock: 15,
-        discount: 10,
-        features: [
-          'Active Noise Cancellation',
-          '40-hour battery life',
-          'Bluetooth 5.0 connectivity',
-          'Built-in microphone for calls',
-          'Foldable design for easy storage',
-          'Compatible with all devices'
-        ],
-        specifications: {
-          'Driver Size': '40mm',
-          'Frequency Response': '20Hz-20kHz',
-          'Impedance': '32 Ohms',
-          'Battery Life': '40 hours',
-          'Charging Time': '2 hours',
-          'Weight': '250g'
-        },
-        reviews: [
-          {
-            _id: '1',
-            user: 'John Doe',
-            rating: 5,
-            comment: 'These headphones are amazing! The sound quality is exceptional and the noise cancellation works perfectly.',
-            createdAt: '2023-06-15T10:30:00Z'
-          },
-          {
-            _id: '2',
-            user: 'Jane Smith',
-            rating: 4,
-            comment: 'Great sound and comfortable to wear. Battery life is impressive but they are a bit heavy after several hours.',
-            createdAt: '2023-05-28T14:15:00Z'
-          },
-          {
-            _id: '3',
-            user: 'Mike Johnson',
-            rating: 4,
-            comment: 'Excellent value for the price. The noise cancellation could be better but overall very satisfied.',
-            createdAt: '2023-05-10T08:45:00Z'
-          }
-        ]
-      };
+  // useEffect(() => {
+  //   if (process.env.NODE_ENV === 'development') {
+  //     const sampleProduct = {
+  //       _id: id,
+  //       name: 'Premium Wireless Headphones',
+  //       description: 'Experience immersive sound with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.',
+  //       price: 149.99,
+  //       image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //       category: 'Electronics',
+  //       brand: 'SoundMaster',
+  //       rating: 4.5,
+  //       numReviews: 127,
+  //       countInStock: 15,
+  //       discount: 10,
+  //       features: [
+  //         'Active Noise Cancellation',
+  //         '40-hour battery life',
+  //         'Bluetooth 5.0 connectivity',
+  //         'Built-in microphone for calls',
+  //         'Foldable design for easy storage',
+  //         'Compatible with all devices'
+  //       ],
+  //       specifications: {
+  //         'Driver Size': '40mm',
+  //         'Frequency Response': '20Hz-20kHz',
+  //         'Impedance': '32 Ohms',
+  //         'Battery Life': '40 hours',
+  //         'Charging Time': '2 hours',
+  //         'Weight': '250g'
+  //       },
+  //       reviews: [
+  //         {
+  //           _id: '1',
+  //           user: 'John Doe',
+  //           rating: 5,
+  //           comment: 'These headphones are amazing! The sound quality is exceptional and the noise cancellation works perfectly.',
+  //           createdAt: '2023-06-15T10:30:00Z'
+  //         },
+  //         {
+  //           _id: '2',
+  //           user: 'Jane Smith',
+  //           rating: 4,
+  //           comment: 'Great sound and comfortable to wear. Battery life is impressive but they are a bit heavy after several hours.',
+  //           createdAt: '2023-05-28T14:15:00Z'
+  //         },
+  //         {
+  //           _id: '3',
+  //           user: 'Mike Johnson',
+  //           rating: 4,
+  //           comment: 'Excellent value for the price. The noise cancellation could be better but overall very satisfied.',
+  //           createdAt: '2023-05-10T08:45:00Z'
+  //         }
+  //       ]
+  //     };
       
-      const sampleRelatedProducts = [
-        {
-          _id: '101',
-          name: 'Wireless Earbuds',
-          price: 79.99,
-          image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          rating: 4.3,
-          numReviews: 89,
-          discount: 0
-        },
-        {
-          _id: '102',
-          name: 'Bluetooth Speaker',
-          price: 99.99,
-          image: 'https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          rating: 4.1,
-          numReviews: 56,
-          discount: 15
-        },
-        {
-          _id: '103',
-          name: 'Noise Cancelling Headphones',
-          price: 199.99,
-          image: 'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          rating: 4.7,
-          numReviews: 112,
-          discount: 0
-        },
-        {
-          _id: '104',
-          name: 'Gaming Headset',
-          price: 129.99,
-          image: 'https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          rating: 4.4,
-          numReviews: 78,
-          discount: 5
-        }
-      ];
+  //     const sampleRelatedProducts = [
+  //       {
+  //         _id: '101',
+  //         name: 'Wireless Earbuds',
+  //         price: 79.99,
+  //         image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //         rating: 4.3,
+  //         numReviews: 89,
+  //         discount: 0
+  //       },
+  //       {
+  //         _id: '102',
+  //         name: 'Bluetooth Speaker',
+  //         price: 99.99,
+  //         image: 'https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //         rating: 4.1,
+  //         numReviews: 56,
+  //         discount: 15
+  //       },
+  //       {
+  //         _id: '103',
+  //         name: 'Noise Cancelling Headphones',
+  //         price: 199.99,
+  //         image: 'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //         rating: 4.7,
+  //         numReviews: 112,
+  //         discount: 0
+  //       },
+  //       {
+  //         _id: '104',
+  //         name: 'Gaming Headset',
+  //         price: 129.99,
+  //         image: 'https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //         rating: 4.4,
+  //         numReviews: 78,
+  //         discount: 5
+  //       }
+  //     ];
       
-      setProduct(sampleProduct);
-      setRelatedProducts(sampleRelatedProducts);
-      setLoading(false);
-    }
-  }, [id]);
+  //     setProduct(sampleProduct);
+  //     setRelatedProducts(sampleRelatedProducts);
+  //     setLoading(false);
+  //   }
+  // }, [id]);
   
   const handleAddToCart = () => {
     addToCart(product, quantity);
