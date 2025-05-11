@@ -1,30 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Plus, Edit, Trash2, Search, AlertCircle } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const AdminProducts = () => {
+  const { isAdmin } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isAdmin()) {
+      navigate('/');
+      return;
+    }
     fetchProducts();
-  }, []);
+  }, [isAdmin, navigate]);
 
   const fetchProducts = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const response = await axios.get("/api/products");
-      const Arrayresponse = [...[response.data]];
-      // console.log(Arrayresponse)
       setProducts(response.data.products || []);
-      setLoading(false);
     } catch (err) {
-      setError("Failed to load products");
+      const errorMessage = err.response?.data?.message || "Failed to load products";
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
       setLoading(false);
     }
   };
@@ -36,7 +45,8 @@ const AdminProducts = () => {
       toast.success("Product deleted successfully");
       setShowDeleteModal(false);
     } catch (err) {
-      toast.error("Failed to delete product");
+      const errorMessage = err.response?.data?.message || "Failed to delete product";
+      toast.error(errorMessage);
     }
   };
 
@@ -51,10 +61,12 @@ const AdminProducts = () => {
       <div className="p-6">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white p-4 rounded-lg">
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="h-48 bg-gray-200 rounded mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
               </div>
             ))}
           </div>

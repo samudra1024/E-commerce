@@ -7,17 +7,17 @@ export const CartProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
   const [itemCount, setItemCount] = useState(0);
 
-  // Load cart from localStorage on initial render
+  // Load cart from sessionStorage on initial render
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
+    const storedCart = sessionStorage.getItem('cart');
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
   }, []);
 
-  // Update localStorage and recalculate totals when cart changes
+  // Update sessionStorage and recalculate totals when cart changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    sessionStorage.setItem('cart', JSON.stringify(cart));
     
     // Calculate total and item count
     const { total, count } = cart.reduce(

@@ -1,29 +1,68 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { Package, Truck, CheckCircle, AlertCircle, Clock, XCircle } from 'lucide-react';
 
 const OrdersPage = () => {
-  const { user } = useContext(AuthContext);
+  const { isAuthenticated, getToken } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
+      // If not authenticated, redirect to login page
+      if (!isAuthenticated()) {
+        setError('You must be logged in to view your orders.');
+        setLoading(false);
+        setTimeout(() => navigate('/login'), 2000);
+        return;
+      }
+
       try {
         const response = await axios.get('/api/orders/myorders');
         setOrders(response.data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to load orders');
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          setError('Session expired. Please login again.');
+          setTimeout(() => navigate('/login'), 2000);
+        } else {
+          setError('Failed to load orders. Please try again later.');
+        }
         setLoading(false);
       }
     };
 
     fetchOrders();
-  }, []);
+  }, [isAuthenticated, navigate]);
+
+  const handleCancelOrder = async (orderId) => {
+    if (!isAuthenticated()) {
+      setError('You must be logged in to cancel orders.');
+      setTimeout(() => navigate('/login'), 2000);
+      return;
+    }
+
+    try {
+      await axios.put(`/api/orders/${orderId}/cancel`);
+      // Update the order status in the UI
+      setOrders(orders.map(order => 
+        order._id === orderId 
+          ? { ...order, status: 'Cancelled' }
+          : order
+      ));
+    } catch (err) {
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        setError('Session expired. Please login again.');
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        setError('Failed to cancel order. Please try again later.');
+      }
+    }
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -176,6 +215,18 @@ const OrdersPage = () => {
                     <span className="text-gray-900">${order.totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
+
+                {order.status === 'Processing' && (
+                  <div className="mt-6">
+                    <button
+                      onClick={() => handleCancelOrder(order._id)}
+                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <XCircle className="h-5 w-5 mr-2" />
+                      Cancel Order
+                    </button>
+                  </div>
+                )}
 
                 {order.status === 'Shipped' && order.trackingNumber && (
                   <div className="mt-6 bg-blue-50 p-4 rounded-md">

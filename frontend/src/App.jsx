@@ -11,13 +11,14 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import OrdersPage from './pages/OrdersPage';
+import OrderDetailsPage from './pages/OrderDetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PrivateRoute from './components/common/PrivateRoute';
 import AdminRoute from './components/common/AdminRoute';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
-import NewProduct from './pages/admin/NewProduct';
+import NewProduct from './pages/admin/NewProduct.jsx';
 
 function App() {
   return (
@@ -36,13 +37,15 @@ function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/orders/:id" element={<OrderDetailsPage />} />
           </Route>
           
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/products" element={<AdminProducts />} />
+            <Route path="/admin/newproduct" element={<NewProduct />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
-            <Route path="/admin/newproduct" element={<NewProduct/>} />
+            
           </Route>
           
           <Route path="*" element={<NotFoundPage />} />

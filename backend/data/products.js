@@ -120,19 +120,19 @@ const products = [
     }
   },
   {
-    name: "Wireless Earbuds",
-    image: "https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description:
+    "name": "Wireless Earbuds",
+    "image": "https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description":
       "True wireless earbuds with outstanding sound quality. Features active noise cancellation, touch controls, and a charging case that provides up to 24 hours of total playtime.",
-    brand: "SoundMaster",
-    category: "Electronics",
-    price: 79.99,
-    countInStock: 20,
-    rating: 4.3,
-    numReviews: 89,
-    discount: 0,
-    featured: false,
-    features: [
+    "brand": "SoundMaster",
+    "category": "Electronics",
+    "price": 79.99,
+    "countInStock": 20,
+    "rating": 4.3,
+    "numReviews": 89,
+    "discount": 0,
+    "featured": false,
+    "features": [
       "True wireless design",
       "Active noise cancellation",
       "Touch controls",
@@ -140,7 +140,7 @@ const products = [
       "6-hour battery life (24 with case)",
       "USB-C fast charging"
     ],
-    specifications: {
+    "specifications": {
       "Driver Size": "8mm",
       "Frequency Response": "20Hz-20kHz",
       "Battery Life": "6 hours (24 with case)",

@@ -9,31 +9,60 @@ const AdminOrders = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
+  
+  // Extract token from sessionStorage
+  let token = '';
+  const userStr = sessionStorage.getItem('user');
+  if (userStr) {
+    try {
+      const userObj = JSON.parse(userStr);
+      token = userObj.token || '';
+    } catch (e) {
+      token = '';
+    }
+  }
 
   useEffect(() => {
     fetchOrders();
+    // eslint-disable-next-line
   }, []);
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('/api/orders');
+      const response = await axios.get('/api/orders', {
+        headers: { Authorization: token }
+      });
       setOrders(response.data);
       setLoading(false);
     } catch (err) {
-      setError('Failed to load orders');
+      setError(
+        err?.response?.data?.message ||
+        err?.message ||
+        'Failed to load orders'
+      );
       setLoading(false);
     }
   };
 
   const handleStatusChange = async (orderId, status) => {
     try {
-      await axios.put(`/api/orders/${orderId}/status`, { status });
+      await axios.put(
+        `/api/orders/${orderId}/status`,
+        { status },
+        {
+          headers: { Authorization: token }
+        }
+      );
       setOrders(orders.map(order =>
         order._id === orderId ? { ...order, status } : order
       ));
       toast.success('Order status updated successfully');
     } catch (err) {
-      toast.error('Failed to update order status');
+      toast.error(
+        err?.response?.data?.message ||
+        err?.message ||
+        'Failed to update order status'
+      );
     }
   };
 
@@ -69,8 +98,8 @@ const AdminOrders = () => {
 
   const filteredOrders = orders.filter(order => {
     const matchesSearch = (
-      order._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      order._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.user?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const matchesStatus = !filterStatus || order.status === filterStatus;
     return matchesSearch && matchesStatus;
@@ -176,32 +205,31 @@ const AdminOrders = () => {
                 <tr key={order._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      #{order._id.slice(-8)}
+                      #{order._id?.slice(-8)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {order.user.name}
+                      {order.user?.name}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {order.user.email}
+                      {order.user?.email}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {new Date(order.createdAt).toLocaleDateString()}
+                      {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : ''}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {new Date(order.createdAt).toLocaleTimeString()}
+                      {order.createdAt ? new Date(order.createdAt).toLocaleTimeString() : ''}
                     </div>
-                
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      ${order.totalPrice.toFixed(2)}
+                      ${order.totalPrice?.toFixed(2)}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {order.orderItems.length} items
+                      {order.orderItems?.length} items
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -232,6 +260,9 @@ const AdminOrders = () => {
               ))}
             </tbody>
           </table>
+          {filteredOrders.length === 0 && (
+            <div className="p-6 text-center text-gray-500">No orders found.</div>
+          )}
         </div>
       </div>
     </div>

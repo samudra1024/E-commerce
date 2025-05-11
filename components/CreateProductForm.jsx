@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Upload, Plus, X, Loader2 } from "lucide-react";
-import { AuthContext } from "../../context/AuthContext";
 
 // Initial form state
 const initialFormData = {
@@ -20,94 +19,28 @@ const initialFormData = {
   specifications: [{ key: "", value: "" }],
 };
 
+// Create axios instance with auth token
+const api = axios.create({
+  baseURL: "/api",
+});
+
+api.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("authToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Utility to sanitize filenames
+const sanitizeFilename = (name) => name.replace(/[^a-zA-Z0-9._-]/g, "_");
+
 const CreateProductForm = () => {
   const navigate = useNavigate();
-  const {
-    user,
-    isAdmin,
-    isAuthenticated,
-    getToken,
-    logout,
-    loading: authLoading,
-    error: authError,
-  } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
-  const [errors, setErrors] = useState({});
-
-  // useEffect(() => {
-  //   setLoading(false)
-  //   setImageUploading(false)
-  //   setFormData(initialFormData)
-  //   setErrors({})
-  // }, [imageUploading])
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Product name is required";
-    }
-
-    if (!formData.description.trim()) {
-      newErrors.description = "Description is required";
-    }
-
-    if (
-      !formData.price ||
-      isNaN(Number(formData.price)) ||
-      parseFloat(formData.price) <= 0
-    ) {
-      newErrors.price = "Valid price is required";
-    }
-
-    if (!formData.image) {
-      newErrors.image = "Product image is required";
-    }
-
-    if (!formData.brand.trim()) {
-      newErrors.brand = "Brand is required";
-    }
-
-    if (!formData.category.trim()) {
-      newErrors.category = "Category is required";
-    }
-
-    if (
-      !formData.countInStock ||
-      isNaN(Number(formData.countInStock)) ||
-      parseInt(formData.countInStock) < 0
-    ) {
-      newErrors.countInStock = "Valid stock quantity is required";
-    }
-
-    if (
-      formData.discount &&
-      (isNaN(Number(formData.discount)) ||
-        parseFloat(formData.discount) < 0 ||
-        parseFloat(formData.discount) > 100)
-    ) {
-      newErrors.discount = "Discount must be between 0 and 100";
-    }
-
-    // Validate features
-    if (formData.features.some((feature) => !feature.trim())) {
-      newErrors.features = "All features must be filled";
-    }
-
-    // Validate specifications
-    if (
-      formData.specifications.some(
-        (spec) => !spec.key.trim() || !spec.value.trim()
-      )
-    ) {
-      newErrors.specifications = "All specification fields must be filled";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -115,10 +48,6 @@ const CreateProductForm = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear error when field is modified
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
-    }
   };
 
   const handleFeatureChange = (index, value) => {
@@ -130,10 +59,6 @@ const CreateProductForm = () => {
     const newFeatures = [...formData.features];
     newFeatures[index] = value;
     setFormData((prev) => ({ ...prev, features: newFeatures }));
-    // Clear features error when modified
-    if (errors["features"]) {
-      setErrors((prev) => ({ ...prev, features: undefined }));
-    }
   };
 
   const addFeature = () => {
@@ -158,10 +83,6 @@ const CreateProductForm = () => {
     const newSpecs = [...formData.specifications];
     newSpecs[index] = { ...newSpecs[index], [field]: value };
     setFormData((prev) => ({ ...prev, specifications: newSpecs }));
-    // Clear specifications error when modified
-    if (errors["specifications"]) {
-      setErrors((prev) => ({ ...prev, specifications: undefined }));
-    }
   };
 
   const addSpecification = () => {
@@ -182,75 +103,135 @@ const CreateProductForm = () => {
     }));
   };
 
+  /**
+   * Handles image upload from file input.
+   * Validates file type and size, uploads to server, updates form state, and manages UI feedback.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - File input change event
+   */
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type and size (same as before)
-    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    const validTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+    ];
     if (!validTypes.includes(file.type)) {
       toast.error("Only JPG, PNG, GIF, or WEBP images are allowed");
+      if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
+    // Validate file size (10MB)
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
       toast.error("Image size must be less than 10MB");
+      if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
 
     const uploadData = new FormData();
-    uploadData.append("image", file);
+    uploadData.append("image", file, sanitizeFilename(file.name));
 
+    setImageUploading(true);
     try {
-      setImageUploading(true);
-      const token = getToken();
-      if (!token) throw new Error("No token found");
-      if (!isAdmin) {
-        toast.error("Only admin users can create products");
-        setImageUploading(false);
-        return;
-      }
-
-      const response = await axios.post("/api/upload", uploadData, {
-        headers: { Authorization: token },
+      const { data } = await api.post("/upload", uploadData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // Ensure the response contains the correct URL
-      console.log("Image upload response:", response.data.url);
-      if (response.data?.url) {
-        // Use a callback to ensure immediate state update
-        setFormData((prev) => ({ ...prev, image: response.data.url }));
-        toast.success("Image uploaded successfully");
-        if (errors["image"]) {
-          setErrors((prev) => ({ ...prev, image: undefined }));
-        }
-      } else {
-        throw new Error("No image URL returned");
-      }
+      if (!data?.url) throw new Error("No image URL returned");
+
+      setFormData((prev) => ({ ...prev, image: data.url }));
+      toast.success("Image uploaded successfully");
+      // Image URL successfully set in form state
     } catch (error) {
-      console.error("Upload error:", error);
-      toast.error(error.response?.data?.message || "Failed to upload image");
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        sessionStorage.removeItem("authToken");
+        navigate("/login");
+      } else {
+        toast.error(error.response?.data?.message || "Failed to upload image");
+      }
     } finally {
       setImageUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
+  };
+
+  const validateForm = () => {
+    if (!formData.name.trim()) return "Product name is required";
+    if (!formData.description.trim()) return "Description is required";
+    if (isNaN(Number(formData.price)) || parseFloat(formData.price) <= 0)
+      return "Valid price is required";
+    if (!formData.image) return "Product image is required";
+    if (!formData.brand.trim()) return "Brand is required";
+    if (!formData.category.trim()) return "Category is required";
+    if (
+      isNaN(Number(formData.countInStock)) ||
+      parseInt(formData.countInStock) < 0
+    )
+      return "Valid stock quantity is required";
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      toast.error("Please fix the form errors before submitting");
+    const validationError = validateForm();
+    if (validationError) {
+      toast.error(validationError);
       return;
     }
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/products", formData);
+
+      // Convert specifications array to object
+      const specificationsObject = formData.specifications.reduce(
+        (acc, spec) => {
+          if (spec.key.trim() && spec.value.trim()) {
+            acc[spec.key.trim()] = spec.value.trim();
+          }
+          return acc;
+        },
+        {}
+      );
+
+      // Filter out empty features
+      const filteredFeatures = formData.features.filter(
+        (feature) => feature.trim() !== ""
+      );
+
+      const productData = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        price: parseFloat(formData.price),
+        brand: formData.brand.trim(),
+        category: formData.category.trim(),
+        countInStock: parseInt(formData.countInStock),
+        image: formData.image,
+        discount: parseInt(formData.discount) || 0,
+        featured: formData.featured,
+        features: filteredFeatures,
+        specifications: specificationsObject,
+      };
+
+      const response = await api.post("/products", productData);
       toast.success("Product created successfully");
+      setFormData(initialFormData);
       navigate("/admin/products");
     } catch (error) {
-      console.error("Submit error:", error);
-      toast.error(error.response?.data?.message || "Failed to create product");
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        sessionStorage.removeItem("authToken");
+        navigate("/login");
+      } else {
+        toast.error(
+          error.response?.data?.message || "Failed to create product"
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -448,9 +429,11 @@ const CreateProductForm = () => {
                     id="image"
                     name="image"
                     type="file"
-                    accept="/uploads/*"
+                    accept="image/*"
                     onChange={handleImageUpload}
                     className="sr-only"
+                    required
+                    ref={fileInputRef}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
@@ -463,24 +446,18 @@ const CreateProductForm = () => {
         )}
         {formData.image && (
           <div className="mt-4 flex flex-col items-center">
-            <div className="relative">
-              <img
-                src={formData.image}
-                alt="Product preview"
-                className="h-48 w-48 object-cover rounded-lg shadow-md"
-              />
-              <button
-                type="button"
-                onClick={() => setFormData((prev) => ({ ...prev, image: "" }))}
-                className="absolute -top-2 -right-2 bg-red-100 rounded-full p-1 text-red-600 hover:text-red-800 hover:bg-red-200 transition-colors"
-                aria-label="Remove image"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <p className="mt-2 text-sm text-gray-500">
-              Image uploaded successfully
-            </p>
+            <img
+              src={formData.image}
+              alt="Product preview"
+              className="h-32 w-32 object-cover rounded-lg"
+            />
+            <button
+              type="button"
+              onClick={() => setFormData((prev) => ({ ...prev, image: "" }))}
+              className="mt-2 text-sm text-red-600 hover:text-red-800"
+            >
+              Remove Image
+            </button>
           </div>
         )}
       </div>
