@@ -73,7 +73,7 @@ const ProductsPage = () => {
 
         // Make API request
         console.log(params);
-        const response = await axios.get(`base_url/api/products?${params.toString()}`);
+        const response = await axios.get(`/api/products?${params.toString()}`);
         setProducts(response.data.products);
         console.log(Array.isArray(products));
         setTotalPages(response.data.totalPages);
@@ -88,7 +88,7 @@ const ProductsPage = () => {
     // Fetch categories if not already loaded
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("base_url/api/products/categories");
+        const response = await axios.get("/api/products/categories");
         setCategories(response.data);
       } catch (err) {
         console.error("Error fetching categories:", err);

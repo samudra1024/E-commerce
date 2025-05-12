@@ -29,7 +29,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('base_url/api/orders', {
+      const response = await axios.get('/api/orders', {
         headers: { Authorization: token }
       });
       setOrders(response.data);
@@ -47,7 +47,7 @@ const AdminOrders = () => {
   const handleStatusChange = async (orderId, status) => {
     try {
       await axios.put(
-        `base_url/api/orders/${orderId}/status`,
+        `/api/orders/${orderId}/status`,
         { status },
         {
           headers: { Authorization: token }

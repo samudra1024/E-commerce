@@ -23,7 +23,7 @@ const OrdersPage = () => {
 
       try {
         const token = getToken ? getToken() : null;
-        const response = await axios.get('base_url/api/orders/myorders', {
+        const response = await axios.get('/api/orders/myorders', {
           headers: token ? { Authorization: token } : {},
         });
         setOrders(response.data || []);
@@ -55,7 +55,7 @@ const OrdersPage = () => {
 
     try {
       const token = getToken ? getToken() : null;
-      await axios.put(`base_url/api/orders/${orderId}/cancel`, {}, {
+      await axios.put(`/api/orders/${orderId}/cancel`, {}, {
         headers: token ? { Authorization: token } : {},
       });
       // Update the order status in the UI

@@ -88,7 +88,7 @@ const CheckoutForm = () => {
       }
 
       // Send order to backend
-      const response = await axios.post("base_url/api/orders", order, {
+      const response = await axios.post("/api/orders", order, {
         headers: { Authorization: token },
       });
 

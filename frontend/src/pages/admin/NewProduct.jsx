@@ -205,7 +205,7 @@ const CreateProductForm = () => {
         return;
       }
 
-      const response = await axios.post("base_url/api/upload", uploadData, {
+      const response = await axios.post("/api/upload", uploadData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",
@@ -246,7 +246,7 @@ const CreateProductForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("base_url/api/products", formData);
+      const response = await axios.post("/api/products", formData);
       toast.success("Product created successfully");
       navigate("/admin/products");
     } catch (error) {

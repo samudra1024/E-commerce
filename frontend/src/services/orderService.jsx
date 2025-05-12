@@ -24,7 +24,7 @@ const getAuthHeaders = () => {
 // Create new order
 export const createOrder = async (orderData) => {
   try {
-    const response = await axios.post("base_url/api/orders", orderData);
+    const response = await axios.post("/api/orders", orderData);
     return response.data;
   } catch (error) {
     throw error;
@@ -34,7 +34,7 @@ export const createOrder = async (orderData) => {
 // Get order by ID
 export const getOrderById = async (orderId) => {
   try {
-    const response = await axios.get(`base_url/api/orders/${orderId}`);
+    const response = await axios.get(`/api/orders/${orderId}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -44,7 +44,7 @@ export const getOrderById = async (orderId) => {
 // Get user's orders
 export const getMyOrders = async () => {
   try {
-    const response = await axios.get("base_url/api/orders/myorders");
+    const response = await axios.get("/api/orders/myorders");
     return response.data;
   } catch (error) {
     throw error;
@@ -54,7 +54,7 @@ export const getMyOrders = async () => {
 // Cancel order
 export const cancelOrder = async (orderId) => {
   try {
-    const response = await axios.put(`base_url/api/orders/${orderId}/cancel`);
+    const response = await axios.put(`/api/orders/${orderId}/cancel`);
     return response.data;
   } catch (error) {
     throw error;
@@ -64,7 +64,7 @@ export const cancelOrder = async (orderId) => {
 // Update order to paid
 export const payOrder = async (orderId) => {
   try {
-    const response = await axios.put(`base_url/api/orders/${orderId}/pay`);
+    const response = await axios.put(`/api/orders/${orderId}/pay`);
     return response.data;
   } catch (error) {
     throw error;
@@ -74,7 +74,7 @@ export const payOrder = async (orderId) => {
 // Update order to delivered
 export const deliverOrder = async (orderId) => {
   try {
-    const response = await axios.put(`base_url/api/orders/${orderId}/deliver`);
+    const response = await axios.put(`/api/orders/${orderId}/deliver`);
     return response.data;
   } catch (error) {
     throw error;
@@ -84,7 +84,7 @@ export const deliverOrder = async (orderId) => {
 // Update order status
 export const updateOrderStatus = async (orderId, status) => {
   try {
-    const response = await axios.put(`base_url/api/orders/${orderId}/status`, { status });
+    const response = await axios.put(`/api/orders/${orderId}/status`, { status });
     return response.data;
   } catch (error) {
     throw error;

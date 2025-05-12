@@ -40,12 +40,12 @@ const AdminProducts = () => {
   };
 
   const handleUpdate = (productId) => {
-    navigate(`base_url/admin/updateproduct/${productId}`);
+    navigate(`/admin/updateproduct/${productId}`);
   };
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`base_url/api/products/${productId}`);
+      await axios.delete(`/api/products/${productId}`);
       setProducts(products.filter((p) => p._id !== productId));
       toast.success("Product deleted successfully");
       setShowDeleteModal(false);

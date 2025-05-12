@@ -21,7 +21,7 @@ const AdminDashboard = () => {
         // In a real application, you would fetch this data from your API
         // For now, we'll use sample data
         // Fetch stats
-        const statsRes = await axios.get('base_url/api/users/admin/stats');
+        const statsRes = await axios.get('/api/users/admin/stats');
         setStats({
           totalOrders: statsRes.data.totalOrders || 0,
           totalUsers: statsRes.data.totalUsers || 0,

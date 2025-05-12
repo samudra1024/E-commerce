@@ -143,7 +143,7 @@ const UpdateProductDetails = () => {
         return;
       }
 
-      const response = await axios.post("base_url/api/upload", uploadData, {
+      const response = await axios.post("/api/upload", uploadData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",

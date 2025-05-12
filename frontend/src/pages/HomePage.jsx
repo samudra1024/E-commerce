@@ -22,14 +22,14 @@ const HomePage = () => {
         setLoading(true);
         // Get featured products
         const featuredRes = await axios.get(
-          `base_url/api/products?featured=true&limit=4`
+          `/api/products?featured=true&limit=4`
         );
         const ArrayfeaturedRes = [...[featuredRes.data]];
         setFeaturedProducts(ArrayfeaturedRes);
 
         // Get new arrivals
         const newArrivalsRes = await axios.get(
-          "base_url/api/products?sort=createdAt&limit=8"
+          "/api/products?sort=createdAt&limit=8"
         );
         const ArraynewArrivalsRes = [...[newArrivalsRes.data]];
         setNewArrivals(ArraynewArrivalsRes);

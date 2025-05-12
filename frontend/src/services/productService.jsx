@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Fetch all products
 export const getProductById = async (productId) => {
   try {
-    const response = await axios.get(`base_url/api/products/${productId}`);
+    const response = await axios.get(`/api/products/${productId}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -18,7 +18,7 @@ export const getProductById = async (productId) => {
 // Update product details
 export const updateProduct = async (productId, productData) => {
   try {
-    const response = await axios.put(`base_url/api/products/${productId}`, productData);
+    const response = await axios.put(`/api/products/${productId}`, productData);
     return response.data;
   } catch (error) {
     throw error;
@@ -29,7 +29,7 @@ export const updateProduct = async (productId, productData) => {
 export const addProductReview = async (productId, reviewData) => {
   try {
     const response = await axios.post(
-      `base_url/api/products/${productId}/reviews`,
+      `/api/products/${productId}/reviews`,
       reviewData
     );
     return response.data;

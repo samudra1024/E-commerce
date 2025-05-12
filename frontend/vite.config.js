@@ -9,8 +9,9 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      'base_url': {
+      '/api': {
         target: 'https://e-commerce-backend-87to.onrender.com',
+        // target: 'http://localhost:5000',
         changeOrigin: true,
       },
     },
