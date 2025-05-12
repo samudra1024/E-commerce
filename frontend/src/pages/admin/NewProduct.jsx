@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Upload, Plus, X, Loader2 } from "lucide-react";
-import { AuthContext } from "../../context/AuthContext";
+import  AuthContext  from "../../context/AuthContext";
 
 // Initial form state
 const initialFormData = {
@@ -205,7 +205,7 @@ const CreateProductForm = () => {
         return;
       }
 
-      const response = await axios.post("/api/upload", uploadData, {
+      const response = await axios.post("base_url/api/upload", uploadData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",
@@ -246,7 +246,7 @@ const CreateProductForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/products", formData);
+      const response = await axios.post("base_url/api/products", formData);
       toast.success("Product created successfully");
       navigate("/admin/products");
     } catch (error) {

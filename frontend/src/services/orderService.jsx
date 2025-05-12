@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // Helper to get the latest token from sessionStorage
 const getAuthToken = () => {
   const userStr = sessionStorage.getItem("user");
@@ -19,72 +20,73 @@ const getAuthHeaders = () => {
   const authToken = getAuthToken();
   return authToken ? { Authorization: authToken } : {};
 };
+
 // Create new order
 export const createOrder = async (orderData) => {
-  const response = await axios.post("/api/orders", orderData, {
-    headers: getAuthHeaders(),
-  });
-  return response.data;
+  try {
+    const response = await axios.post("base_url/api/orders", orderData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Get order by ID
 export const getOrderById = async (orderId) => {
-  const response = await axios.get(`/api/orders/${orderId}`, {
-    headers: getAuthHeaders(),
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`base_url/api/orders/${orderId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Get user's orders
 export const getMyOrders = async () => {
-  const response = await axios.get("/api/orders/myorders", {
-    headers: getAuthHeaders(),
-  });
-  return response.data;
+  try {
+    const response = await axios.get("base_url/api/orders/myorders");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Cancel order
 export const cancelOrder = async (orderId) => {
-  const response = await axios.put(
-    `/api/orders/${orderId}/cancel`,
-    {},
-    {
-      headers: getAuthHeaders(),
-    }
-  );
-  return response.data;
+  try {
+    const response = await axios.put(`base_url/api/orders/${orderId}/cancel`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Update order to paid
-export const updateOrderToPaid = async (orderId, paymentResult) => {
-  const response = await axios.put(
-    `/api/orders/${orderId}/pay`,
-    paymentResult,
-    {
-      headers: getAuthHeaders(),
-    }
-  );
-  return response.data;
+export const payOrder = async (orderId) => {
+  try {
+    const response = await axios.put(`base_url/api/orders/${orderId}/pay`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Update order to delivered
-export const updateOrderToDelivered = async (orderId) => {
-  const response = await axios.put(
-    `/api/orders/${orderId}/deliver`,
-    {},
-    {
-      headers: getAuthHeaders(),
-    }
-  );
-  return response.data;
+export const deliverOrder = async (orderId) => {
+  try {
+    const response = await axios.put(`base_url/api/orders/${orderId}/deliver`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Update order status
-export const updateOrderStatus = async (orderId, status, trackingNumber) => {
-  const response = await axios.put(
-    `/api/orders/${orderId}/status`,
-    { status, trackingNumber },
-    { headers: getAuthHeaders() }
-  );
-  return response.data;
+export const updateOrderStatus = async (orderId, status) => {
+  try {
+    const response = await axios.put(`base_url/api/orders/${orderId}/status`, { status });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };

@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.post('/api/users/', userData);
+      const res = await axios.post('base_url/api/users/', userData);
       
       if (res.data) {
         sessionStorage.setItem('user', JSON.stringify(res.data));
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.post('/api/users/login', { email, password });
+      const res = await axios.post('base_url/api/users/login', { email, password });
       
       if (res.data) {
         sessionStorage.setItem('user', JSON.stringify(res.data));

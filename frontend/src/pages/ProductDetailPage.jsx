@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import AuthContext from "../context/AuthContext";
 import { toast } from "react-toastify";
 import {
   ShoppingCart,
@@ -13,6 +12,7 @@ import {
   Check,
   Truck,
 } from "lucide-react";
+import axios from "axios";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -37,35 +37,37 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        setLoading(true);
-        setError(null);
-        const response = await axios.get(`/api/products/${id}`);
+        const response = await axios.get(`base_url/api/products/${id}`);
         setProduct(response.data);
-        
-        // Check if in wishlist
-        if (isAuthenticated()) {
-          try {
-            const wishlistRes = await axios.get("/api/users/wishlist");
-            setIsWishlist(wishlistRes.data.some((item) => item._id === id));
-          } catch (err) {
-            console.error("Error fetching wishlist:", err);
-          }
-        }
-        
-        // Get related products
-        const relatedRes = await axios.get(`/api/products/related/${id}`);
-        setRelatedProducts(relatedRes.data);
-        
         setLoading(false);
-      } catch (err) {
-        setError("Failed to load product details. Please try again later.");
+      } catch (error) {
+        setError(error.message);
         setLoading(false);
-        console.error("Error fetching product:", err);
       }
     };
-    
+
+    const fetchWishlist = async () => {
+      try {
+        const wishlistRes = await axios.get("base_url/api/users/wishlist");
+        setIsWishlist(wishlistRes.data.some((item) => item._id === id));
+      } catch (error) {
+        console.error("Error fetching wishlist:", error);
+      }
+    };
+
+    const fetchRelatedProducts = async () => {
+      try {
+        const relatedRes = await axios.get(`base_url/api/products/related/${id}`);
+        setRelatedProducts(relatedRes.data);
+      } catch (error) {
+        console.error("Error fetching related products:", error);
+      }
+    };
+
     fetchProduct();
-  }, [id, isAuthenticated]);
+    fetchWishlist();
+    fetchRelatedProducts();
+  }, [id]);
   
   const handleAddToCart = () => {
     addToCart(product, quantity);
@@ -80,10 +82,10 @@ const ProductDetailPage = () => {
     
     try {
       if (isWishlist) {
-        await axios.delete(`/api/users/wishlist/${id}`);
+        await axios.delete(`base_url/api/users/wishlist/${id}`);
         toast.success("Removed from wishlist");
       } else {
-        await axios.post("/api/users/wishlist", { productId: id });
+        await axios.post("base_url/api/users/wishlist", { productId: id });
         toast.success("Added to wishlist");
       }
       
@@ -116,7 +118,7 @@ const ProductDetailPage = () => {
     setReviewLoading(true);
     try {
       // POST review to backend
-      await axios.post(`/api/products/${id}/reviews`, {
+      await axios.post(`base_url/api/products/${id}/reviews`, {
         rating: reviewRating,
         comment: reviewComment,
       });
@@ -125,7 +127,7 @@ const ProductDetailPage = () => {
       toast.success("Review submitted!");
       
       // Fetch updated product details (including new reviews)
-      const updatedProduct = await axios.get(`/api/products/${id}`);
+      const updatedProduct = await axios.get(`base_url/api/products/${id}`);
       setProduct(updatedProduct.data);
       
       // Reset form

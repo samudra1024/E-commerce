@@ -1,25 +1,23 @@
-
 import axios from "axios";
 
 // Updating user profile with authenticated requests
 export const updateUserProfile = async (userData, token) => {
-  const response = await axios.put(
-    "/api/users/profile",
-    userData,
-    {
+  try {
+    const response = await axios.put("base_url/api/users/profile", userData, {
       headers: { Authorization: token },
-    }
-  );
-  return response.data;
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Getting user profile with authenticated requests
-export const getUserProfile = async (token) => {
-  const response = await axios.get(
-    "/api/users/profile",
-    {
-      headers: { Authorization: token },
-    }
-  );
-  return response.data;
+export const getUserProfile = async () => {
+  try {
+    const response = await axios.get("base_url/api/users/profile");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };

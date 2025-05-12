@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Plus, Edit, Trash2, Search, AlertCircle } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 
 const AdminProducts = () => {
   const { isAdmin } = useContext(AuthContext);
@@ -40,12 +40,12 @@ const AdminProducts = () => {
   };
 
   const handleUpdate = (productId) => {
-    navigate(`/admin/updateproduct/${productId}`);
+    navigate(`base_url/admin/updateproduct/${productId}`);
   };
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`/api/products/${productId}`);
+      await axios.delete(`base_url/api/products/${productId}`);
       setProducts(products.filter((p) => p._id !== productId));
       toast.success("Product deleted successfully");
       setShowDeleteModal(false);

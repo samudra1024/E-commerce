@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { CartContext } from "../../context/CartContext";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -88,7 +88,7 @@ const CheckoutForm = () => {
       }
 
       // Send order to backend
-      const response = await axios.post("/api/orders", order, {
+      const response = await axios.post("base_url/api/orders", order, {
         headers: { Authorization: token },
       });
 

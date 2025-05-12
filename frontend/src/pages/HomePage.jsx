@@ -22,14 +22,14 @@ const HomePage = () => {
         setLoading(true);
         // Get featured products
         const featuredRes = await axios.get(
-          "/api/products?featured=true&limit=4"
+          `base_url/api/products?featured=true&limit=4`
         );
         const ArrayfeaturedRes = [...[featuredRes.data]];
         setFeaturedProducts(ArrayfeaturedRes);
 
         // Get new arrivals
         const newArrivalsRes = await axios.get(
-          "/api/products?sort=createdAt&limit=8"
+          "base_url/api/products?sort=createdAt&limit=8"
         );
         const ArraynewArrivalsRes = [...[newArrivalsRes.data]];
         setNewArrivals(ArraynewArrivalsRes);
@@ -44,71 +44,6 @@ const HomePage = () => {
 
     fetchHomePageData();
   }, []);
-
-  // For development - sample data
-  // Remove this when backend is connected
-  // useEffect(() => {
-  //   if (process.env.NODE_ENV === 'development') {
-  //     const sampleProducts = [
-  //       {
-  //         _id: '1',
-  //         name: 'Wireless Headphones',
-  //         description: 'Premium wireless headphones with noise cancellation',
-  //         price: 149.99,
-  //         image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         category: 'Electronics',
-  //         rating: 4.5,
-  //         numReviews: 45,
-  //         countInStock: 15,
-  //         discount: 10,
-  //         featured: true
-  //       },
-  //       {
-  //         _id: '2',
-  //         name: 'Smartphone X Pro',
-  //         description: 'Latest smartphone with high-end camera and fast processor',
-  //         price: 899.99,
-  //         image: 'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         category: 'Electronics',
-  //         rating: 4.8,
-  //         numReviews: 102,
-  //         countInStock: 8,
-  //         discount: 0,
-  //         featured: true
-  //       },
-  //       {
-  //         _id: '3',
-  //         name: 'Designer Watch',
-  //         description: 'Elegant watch with leather strap and quartz movement',
-  //         price: 199.99,
-  //         image: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         category: 'Accessories',
-  //         rating: 4.3,
-  //         numReviews: 38,
-  //         countInStock: 20,
-  //         discount: 15,
-  //         featured: true
-  //       },
-  //       {
-  //         _id: '4',
-  //         name: 'Coffee Maker Deluxe',
-  //         description: 'Automatic coffee maker with grinder and timer',
-  //         price: 129.99,
-  //         image: 'https://images.pexels.com/photos/2608388/pexels-photo-2608388.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         category: 'Home & Kitchen',
-  //         rating: 4.2,
-  //         numReviews: 56,
-  //         countInStock: 12,
-  //         discount: 0,
-  //         featured: true
-  //       },
-  //     ];
-
-  //     setFeaturedProducts(sampleProducts);
-  //     setNewArrivals([...sampleProducts, ...sampleProducts]);
-  //     setLoading(false);
-  //   }
-  // }, []);
 
   return (
     <div>

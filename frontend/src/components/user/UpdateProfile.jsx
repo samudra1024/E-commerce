@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import  AuthContext from "../../context/AuthContext";
 import { updateUserProfile } from "../../services/userService";
 import { toast } from "react-toastify";
 import { User, Mail, Lock, Save, Eye } from "lucide-react";
