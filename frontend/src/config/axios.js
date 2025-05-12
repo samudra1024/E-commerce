@@ -10,8 +10,8 @@ const axiosInstance = axios.create({
 // Add a request interceptor to add the auth token
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('user')
-      ? JSON.parse(localStorage.getItem('user')).token
+    const token = sessionStorage.getItem('user')
+      ? JSON.parse(sessionStorage.getItem('user')).token
       : null;
     if (token) {
       config.headers.Authorization = token;
