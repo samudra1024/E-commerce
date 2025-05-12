@@ -11,9 +11,10 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://e-commerce-backend-87to.onrender.com',
-        // target: 'http://localhost:5000',
         changeOrigin: true,
-      },
-    },
+        secure: false, // Recommended for Render backend
+        rewrite: (path) => path.replace(/^\/api/, '') // Optional: remove /api prefix
+      }
+    }
   },
 });
