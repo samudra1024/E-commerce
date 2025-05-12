@@ -435,7 +435,7 @@ const CreateProductForm = () => {
           <div className="mt-4 flex flex-col items-center">
             <div className="relative">
               <img
-                src={formData.image}
+                src={formData.image ? formData.image.replace(/^http:\/\//i, 'https://') : ''}
                 alt="Product preview"
                 className="h-48 w-48 object-cover rounded-lg shadow-md"
               />

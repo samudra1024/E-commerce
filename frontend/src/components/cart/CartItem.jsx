@@ -40,7 +40,7 @@ const CartItem = ({ item }) => {
       <div className="flex flex-col sm:flex-row items-center mb-4 sm:mb-0">
         <Link to={`/product/${item._id}`} className="block w-24 h-24 flex-shrink-0">
           <img 
-            src={item.image} 
+            src={item.image ? item.image.replace(/^http:\/\//i, 'https://') : ''} 
             alt={item.name} 
             className="w-full h-full object-cover object-center rounded-md"
           />

@@ -250,7 +250,7 @@ const ProductDetailPage = () => {
         <div>
           <div className="bg-white rounded-lg overflow-hidden mb-4">
             <img
-              src={product.image}
+              src={product.image ? product.image.replace(/^http:\/\//i, 'https://') : ''}
               alt={product.name}
               className="w-full h-auto object-cover"
             />
@@ -265,7 +265,7 @@ const ProductDetailPage = () => {
                   className="bg-white rounded-lg overflow-hidden border-2 border-gray-200 cursor-pointer hover:border-blue-500 transition-colors"
                 >
                   <img
-                    src={img}
+                    src={img ? img.replace(/^http:\/\//i, 'https://') : ''}
                     alt={`${product.name} - view ${index + 1}`}
                     className="w-full h-auto object-cover"
                   />
@@ -665,7 +665,7 @@ const ProductDetailPage = () => {
               <div key={product._id} className="product-card group">
                 <Link to={`/product/${product._id}`} className="block">
                   <img
-                    src={product.image}
+                    src={product.image ? product.image.replace(/^http:\/\//i, 'https://') : ''}
                     alt={product.name}
                     className="product-card-img transition-transform duration-300 group-hover:scale-105"
                   />

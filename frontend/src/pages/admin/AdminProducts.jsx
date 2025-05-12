@@ -174,7 +174,7 @@ const AdminProducts = () => {
                       <div className="h-10 w-10 flex-shrink-0">
                         <img
                           className="h-10 w-10 rounded-lg object-cover"
-                          src={product.image}
+                          src={product.image ? product.image.replace(/^http:\/\//i, 'https://') : ''}
                           alt={product.name}
                         />
                       </div>

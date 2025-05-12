@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product._id}`} className="block relative">
         <div className="aspect-w-1 aspect-h-1">
           <img 
-            src={product.image} 
+            src={product.image ? product.image.replace(/^http:\/\//i, 'https://') : ''} 
             alt={product.name} 
             className="product-card-img transition-transform duration-300 group-hover:scale-105"
           />
