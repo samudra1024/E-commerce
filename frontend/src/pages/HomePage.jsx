@@ -22,13 +22,14 @@ const HomePage = () => {
         const featuredRes = await axiosInstance.get(
           "/api/products?featured=true&limit=4"
         );
-        console.log(featuredRes.data[0])
-        setFeaturedProducts(featuredRes.data);
+        console.log(featuredRes.data.products)
+        setFeaturedProducts(featuredRes.data.products);
+        console.log('This featureProducts : ',featuredProducts)
 
         const newArrivalsRes = await axiosInstance.get(
           "/api/products?sort=-createdAt&limit=4"
         );
-        setNewArrivals(newArrivalsRes.data);
+        setNewArrivals(newArrivalsRes.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
