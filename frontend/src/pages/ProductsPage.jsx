@@ -73,7 +73,7 @@ const ProductsPage = () => {
 
         // Make API request
         console.log(params);
-        const response = await axios.get(`/api/products?${params.toString()}`);
+        const response = await axios.get(`https://e-commerce-backend-87to.onrender.com/products?${params.toString()}`);
         setProducts(response.data.products);
         console.log(Array.isArray(products));
         setTotalPages(response.data.totalPages);
