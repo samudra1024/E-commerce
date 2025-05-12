@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
@@ -18,6 +18,7 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const { addToCart } = useContext(CartContext);
   const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,12 @@ const ProductDetailPage = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [isWishlist, setIsWishlist] = useState(false);
 
+  // Review form state
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewLoading, setReviewLoading] = useState(false);
+  const [reviewError, setReviewError] = useState(null);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -34,7 +41,7 @@ const ProductDetailPage = () => {
         setError(null);
         const response = await axios.get(`/api/products/${id}`);
         setProduct(response.data);
-
+        
         // Check if in wishlist
         if (isAuthenticated()) {
           try {
@@ -44,11 +51,11 @@ const ProductDetailPage = () => {
             console.error("Error fetching wishlist:", err);
           }
         }
-
+        
         // Get related products
         const relatedRes = await axios.get(`/api/products/related/${id}`);
         setRelatedProducts(relatedRes.data);
-
+        
         setLoading(false);
       } catch (err) {
         setError("Failed to load product details. Please try again later.");
@@ -56,123 +63,21 @@ const ProductDetailPage = () => {
         console.error("Error fetching product:", err);
       }
     };
-
+    
     fetchProduct();
   }, [id, isAuthenticated]);
-
-  // For development - sample data
-  // Remove this when backend is connected
-  // useEffect(() => {
-  //   if (process.env.NODE_ENV === 'development') {
-  //     const sampleProduct = {
-  //       _id: id,
-  //       name: 'Premium Wireless Headphones',
-  //       description: 'Experience immersive sound with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.',
-  //       price: 149.99,
-  //       image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //       category: 'Electronics',
-  //       brand: 'SoundMaster',
-  //       rating: 4.5,
-  //       numReviews: 127,
-  //       countInStock: 15,
-  //       discount: 10,
-  //       features: [
-  //         'Active Noise Cancellation',
-  //         '40-hour battery life',
-  //         'Bluetooth 5.0 connectivity',
-  //         'Built-in microphone for calls',
-  //         'Foldable design for easy storage',
-  //         'Compatible with all devices'
-  //       ],
-  //       specifications: {
-  //         'Driver Size': '40mm',
-  //         'Frequency Response': '20Hz-20kHz',
-  //         'Impedance': '32 Ohms',
-  //         'Battery Life': '40 hours',
-  //         'Charging Time': '2 hours',
-  //         'Weight': '250g'
-  //       },
-  //       reviews: [
-  //         {
-  //           _id: '1',
-  //           user: 'John Doe',
-  //           rating: 5,
-  //           comment: 'These headphones are amazing! The sound quality is exceptional and the noise cancellation works perfectly.',
-  //           createdAt: '2023-06-15T10:30:00Z'
-  //         },
-  //         {
-  //           _id: '2',
-  //           user: 'Jane Smith',
-  //           rating: 4,
-  //           comment: 'Great sound and comfortable to wear. Battery life is impressive but they are a bit heavy after several hours.',
-  //           createdAt: '2023-05-28T14:15:00Z'
-  //         },
-  //         {
-  //           _id: '3',
-  //           user: 'Mike Johnson',
-  //           rating: 4,
-  //           comment: 'Excellent value for the price. The noise cancellation could be better but overall very satisfied.',
-  //           createdAt: '2023-05-10T08:45:00Z'
-  //         }
-  //       ]
-  //     };
-
-  //     const sampleRelatedProducts = [
-  //       {
-  //         _id: '101',
-  //         name: 'Wireless Earbuds',
-  //         price: 79.99,
-  //         image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         rating: 4.3,
-  //         numReviews: 89,
-  //         discount: 0
-  //       },
-  //       {
-  //         _id: '102',
-  //         name: 'Bluetooth Speaker',
-  //         price: 99.99,
-  //         image: 'https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         rating: 4.1,
-  //         numReviews: 56,
-  //         discount: 15
-  //       },
-  //       {
-  //         _id: '103',
-  //         name: 'Noise Cancelling Headphones',
-  //         price: 199.99,
-  //         image: 'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         rating: 4.7,
-  //         numReviews: 112,
-  //         discount: 0
-  //       },
-  //       {
-  //         _id: '104',
-  //         name: 'Gaming Headset',
-  //         price: 129.99,
-  //         image: 'https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  //         rating: 4.4,
-  //         numReviews: 78,
-  //         discount: 5
-  //       }
-  //     ];
-
-  //     setProduct(sampleProduct);
-  //     setRelatedProducts(sampleRelatedProducts);
-  //     setLoading(false);
-  //   }
-  // }, [id]);
-
+  
   const handleAddToCart = () => {
     addToCart(product, quantity);
     toast.success(`${product.name} added to cart!`);
   };
-
+  
   const toggleWishlist = async () => {
     if (!isAuthenticated()) {
       toast.info("Please login to add items to your wishlist");
       return;
     }
-
+    
     try {
       if (isWishlist) {
         await axios.delete(`/api/users/wishlist/${id}`);
@@ -181,17 +86,66 @@ const ProductDetailPage = () => {
         await axios.post("/api/users/wishlist", { productId: id });
         toast.success("Added to wishlist");
       }
-
+      
       setIsWishlist(!isWishlist);
     } catch (err) {
       toast.error("Failed to update wishlist");
       console.error("Wishlist error:", err);
     }
   };
-
+  
   const handleShareProduct = () => {
     navigator.clipboard.writeText(window.location.href);
     toast.success("Link copied to clipboard!");
+  };
+  
+  // Handle review form submission
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    setReviewError(null);
+    
+    if (reviewRating === 0) {
+      setReviewError("Please select a rating.");
+      return;
+    }
+    if (!reviewComment.trim()) {
+      setReviewError("Please enter a comment.");
+      return;
+    }
+    
+    setReviewLoading(true);
+    try {
+      // POST review to backend
+      await axios.post(`/api/products/${id}/reviews`, {
+        rating: reviewRating,
+        comment: reviewComment,
+      });
+      
+      console.log(product)
+      toast.success("Review submitted!");
+      
+      // Fetch updated product details (including new reviews)
+      const updatedProduct = await axios.get(`/api/products/${id}`);
+      setProduct(updatedProduct.data);
+      
+      // Reset form
+      setReviewRating(0);
+      setReviewComment("");
+      setReviewLoading(false);
+      setReviewError(null);
+    } catch (err) {
+      setReviewLoading(false);
+      if (err.response && err.response.data && err.response.data.message) {
+        setReviewError(err.response.data.message);
+      } else {
+        setReviewError("Failed to submit review. Please try again.");
+      }
+    }
+  };
+
+  // Handle star click for review form
+  const handleStarClick = (star) => {
+    setReviewRating(star);
   };
 
   // Generate stars based on rating
@@ -565,7 +519,7 @@ const ProductDetailPage = () => {
                       {Object.entries(product.specifications).map(
                         ([key, value], index) => (
                           <tr
-                            key={index}
+                           key={index}
                             className={
                               index % 2 === 0 ? "bg-gray-50" : "bg-white"
                             }
@@ -618,7 +572,7 @@ const ProductDetailPage = () => {
                         <div className="flex mr-2">
                           {renderStars(review.rating)}
                         </div>
-                        <span className="font-medium">{review.user}</span>
+                        <span className="font-medium">{review.name}</span>
                       </div>
                       <p className="text-gray-600 text-sm mb-2">
                         {new Date(review.createdAt).toLocaleDateString()}
@@ -633,11 +587,11 @@ const ProductDetailPage = () => {
                 </p>
               )}
 
-              {/* Write Review Form - only for authenticated users who purchased the product */}
+              {/* Write Review Form - only for authenticated users */}
               {isAuthenticated() && (
                 <div className="mt-8 border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
-                  <form>
+                  <form onSubmit={handleReviewSubmit}>
                     <div className="mb-4">
                       <label
                         htmlFor="rating"
@@ -651,8 +605,16 @@ const ProductDetailPage = () => {
                             key={star}
                             type="button"
                             className="focus:outline-none"
+                            onClick={() => handleStarClick(star)}
+                            aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
                           >
-                            <Star className="h-6 w-6 text-gray-300 hover:text-yellow-400 transition-colors" />
+                            <Star
+                              className={`h-6 w-6 transition-colors ${
+                                reviewRating >= star
+                                  ? "text-yellow-400 fill-current"
+                                  : "text-gray-300"
+                              }`}
+                            />
                           </button>
                         ))}
                       </div>
@@ -669,10 +631,20 @@ const ProductDetailPage = () => {
                         rows={4}
                         className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-300 focus:border-blue-500 focus:outline-none"
                         placeholder="Share your experience with this product..."
+                        value={reviewComment}
+                        onChange={(e) => setReviewComment(e.target.value)}
+                        disabled={reviewLoading}
                       ></textarea>
                     </div>
-                    <button type="submit" className="btn btn-primary px-6 py-2">
-                      Submit Review
+                    {reviewError && (
+                      <div className="mb-2 text-red-600 text-sm">{reviewError}</div>
+                    )}
+                    <button
+                      type="submit"
+                      className="btn btn-primary px-6 py-2"
+                      disabled={reviewLoading}
+                    >
+                      {reviewLoading ? "Submitting..." : "Submit Review"}
                     </button>
                   </form>
                 </div>

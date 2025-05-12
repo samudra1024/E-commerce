@@ -48,7 +48,7 @@ const getProducts = asyncHandler(async (req, res) => {
   // Determine sort order
   let sortOrder = {};
   const sort = req.query.sort || '-createdAt'; // Default to newest
-  
+
   if (sort === 'price') {
     sortOrder = { price: 1 }; // Ascending price
   } else if (sort === '-price') {
@@ -227,7 +227,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.countInStock = countInStock || product.countInStock;
     product.discount = discount !== undefined ? discount : product.discount;
     product.featured = featured !== undefined ? featured : product.featured;
-    
+
     if (features) product.features = features;
     if (specifications) product.specifications = specifications;
 

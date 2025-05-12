@@ -18,6 +18,7 @@ const OrderDetailsPage = () => {
         setLoading(false);
       } catch (err) {
         setError('Failed to load order details');
+        toast.error('Failed to load order details');
         setLoading(false);
       }
     };
@@ -48,6 +49,11 @@ const OrderDetailsPage = () => {
     return <div className="text-red-500">{error}</div>;
   }
 
+  // Defensive: If order is null or missing expected fields
+  if (!order) {
+    return <div className="text-red-500">Order not found.</div>;
+  }
+
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -72,11 +78,11 @@ const OrderDetailsPage = () => {
             <div>
               <h2 className="text-lg font-semibold mb-4">Shipping Information</h2>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p><strong>Name:</strong> {order.user.name}</p>
-                <p><strong>Address:</strong> {order.shippingAddress.address}</p>
-                <p><strong>City:</strong> {order.shippingAddress.city}</p>
-                <p><strong>Postal Code:</strong> {order.shippingAddress.postalCode}</p>
-                <p><strong>Country:</strong> {order.shippingAddress.country}</p>
+                <p><strong>Name:</strong> {order.user?.name || 'N/A'}</p>
+                <p><strong>Address:</strong> {order.shippingAddress?.address || 'N/A'}</p>
+                <p><strong>City:</strong> {order.shippingAddress?.city || 'N/A'}</p>
+                <p><strong>Postal Code:</strong> {order.shippingAddress?.postalCode || 'N/A'}</p>
+                <p><strong>Country:</strong> {order.shippingAddress?.country || 'N/A'}</p>
               </div>
             </div>
 
@@ -84,9 +90,9 @@ const OrderDetailsPage = () => {
             <div>
               <h2 className="text-lg font-semibold mb-4">Payment Information</h2>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p><strong>Method:</strong> {order.paymentMethod}</p>
+                <p><strong>Method:</strong> {order.paymentMethod || 'N/A'}</p>
                 <p><strong>Status:</strong> {order.isPaid ? 'Paid' : 'Not Paid'}</p>
-                {order.isPaid && (
+                {order.isPaid && order.paidAt && (
                   <p><strong>Paid At:</strong> {new Date(order.paidAt).toLocaleString()}</p>
                 )}
               </div>
@@ -97,23 +103,27 @@ const OrderDetailsPage = () => {
           <div className="mt-8">
             <h2 className="text-lg font-semibold mb-4">Order Items</h2>
             <div className="border rounded-lg overflow-hidden">
-              {order.orderItems.map((item) => (
-                <div key={item._id} className="flex items-center p-4 border-b last:border-b-0">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                  <div className="ml-4 flex-1">
-                    <Link to={`/product/${item.product}`} className="text-blue-600 hover:text-blue-800">
-                      {item.name}
-                    </Link>
-                    <p className="text-gray-600">
-                      {item.quantity} x ${item.price} = ${(item.quantity * item.price).toFixed(2)}
-                    </p>
+              {order.orderItems && order.orderItems.length > 0 ? (
+                order.orderItems.map((item) => (
+                  <div key={item._id || item.product || item.name} className="flex items-center p-4 border-b last:border-b-0">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                    <div className="ml-4 flex-1">
+                      <Link to={`/product/${item.product}`} className="text-blue-600 hover:text-blue-800">
+                        {item.name}
+                      </Link>
+                      <p className="text-gray-600">
+                        {item.quantity} x {item.price?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })} = {(item.quantity * item.price)?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div className="p-4 text-gray-500">No items in this order.</div>
+              )}
             </div>
           </div>
 
@@ -123,19 +133,19 @@ const OrderDetailsPage = () => {
             <div className="bg-gray-50 p-4 rounded-lg">
               <div className="flex justify-between py-2">
                 <span>Items:</span>
-                <span>${order.itemsPrice.toFixed(2)}</span>
+                <span>{order.itemsPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}</span>
               </div>
               <div className="flex justify-between py-2">
                 <span>Shipping:</span>
-                <span>${order.shippingPrice.toFixed(2)}</span>
+                <span>{order.shippingPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}</span>
               </div>
               <div className="flex justify-between py-2">
                 <span>Tax:</span>
-                <span>${order.taxPrice.toFixed(2)}</span>
+                <span>{order.taxPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}</span>
               </div>
               <div className="flex justify-between py-2 font-bold">
                 <span>Total:</span>
-                <span>${order.totalPrice.toFixed(2)}</span>
+                <span>{order.totalPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}</span>
               </div>
             </div>
           </div>

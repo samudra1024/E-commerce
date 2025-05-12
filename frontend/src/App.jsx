@@ -19,6 +19,9 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
 import NewProduct from './pages/admin/NewProduct.jsx';
+import UpdateProfile from './components/user/UpdateProfile';
+import UpdateProductDetails from './components/products/UpdateProductDetails';
+import ProductReview from './components/products/ProductReview';
 
 function App() {
   return (
@@ -35,7 +38,7 @@ function App() {
           
           <Route element={<PrivateRoute />}>
             <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<UpdateProfile />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/orders/:id" element={<OrderDetailsPage />} />
           </Route>
@@ -45,6 +48,7 @@ function App() {
             <Route path="/admin/products" element={<AdminProducts />} />
             <Route path="/admin/newproduct" element={<NewProduct />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/admin/updateproduct/:id" element={<UpdateProductDetails />} />
             
           </Route>
           

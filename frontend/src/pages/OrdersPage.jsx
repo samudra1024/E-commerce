@@ -22,13 +22,18 @@ const OrdersPage = () => {
       }
 
       try {
-        const response = await axios.get('/api/orders/myorders');
-        setOrders(response.data);
+        const token = getToken ? getToken() : null;
+        const response = await axios.get('/api/orders/myorders', {
+          headers: token ? { Authorization: token } : {},
+        });
+        setOrders(response.data || []);
         setLoading(false);
       } catch (err) {
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           setError('Session expired. Please login again.');
           setTimeout(() => navigate('/login'), 2000);
+        } else if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
         } else {
           setError('Failed to load orders. Please try again later.');
         }
@@ -37,7 +42,9 @@ const OrdersPage = () => {
     };
 
     fetchOrders();
-  }, [isAuthenticated, navigate]);
+    // Only run on mount and when navigate changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   const handleCancelOrder = async (orderId) => {
     if (!isAuthenticated()) {
@@ -47,10 +54,13 @@ const OrdersPage = () => {
     }
 
     try {
-      await axios.put(`/api/orders/${orderId}/cancel`);
+      const token = getToken ? getToken() : null;
+      await axios.put(`/api/orders/${orderId}/cancel`, {}, {
+        headers: token ? { Authorization: token } : {},
+      });
       // Update the order status in the UI
-      setOrders(orders.map(order => 
-        order._id === orderId 
+      setOrders(orders.map(order =>
+        order._id === orderId
           ? { ...order, status: 'Cancelled' }
           : order
       ));
@@ -58,6 +68,8 @@ const OrdersPage = () => {
       if (err.response && (err.response.status === 401 || err.response.status === 403)) {
         setError('Session expired. Please login again.');
         setTimeout(() => navigate('/login'), 2000);
+      } else if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
       } else {
         setError('Failed to cancel order. Please try again later.');
       }
@@ -135,7 +147,7 @@ const OrdersPage = () => {
           </p>
         </div>
 
-        {orders.length === 0 ? (
+        {(!orders || orders.length === 0) ? (
           <div className="p-6 text-center">
             <Package className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900">No orders found</h3>
@@ -158,10 +170,10 @@ const OrdersPage = () => {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                   <div>
                     <h2 className="text-lg font-medium text-gray-900">
-                      Order #{order._id.slice(-8)}
+                      Order #{order._id ? order._id.slice(-8) : 'N/A'}
                     </h2>
                     <p className="text-sm text-gray-500">
-                      Placed on {new Date(order.createdAt).toLocaleDateString()}
+                      Placed on {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A'}
                     </p>
                   </div>
                   <div className={`mt-2 sm:mt-0 px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
@@ -173,8 +185,8 @@ const OrdersPage = () => {
                 </div>
 
                 <div className="mt-6 space-y-4">
-                  {order.orderItems.map((item) => (
-                    <div key={item._id} className="flex items-center">
+                  {(order.orderItems && order.orderItems.length > 0) ? order.orderItems.map((item) => (
+                    <div key={item._id || item.product || item.name} className="flex items-center">
                       <img
                         src={item.image}
                         alt={item.name}
@@ -190,29 +202,39 @@ const OrdersPage = () => {
                           Quantity: {item.quantity}
                         </p>
                         <p className="mt-1 text-sm font-medium text-gray-900">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {(item.price * item.quantity)?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                         </p>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="text-gray-500">No items in this order.</div>
+                  )}
                 </div>
 
                 <div className="mt-6 border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Subtotal</span>
-                    <span className="font-medium">${order.itemsPrice.toFixed(2)}</span>
+                    <span className="font-medium">
+                      {order.itemsPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                    </span>
                   </div>
                   <div className="flex justify-between text-sm mt-2">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="font-medium">${order.shippingPrice.toFixed(2)}</span>
+                    <span className="font-medium">
+                      {order.shippingPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                    </span>
                   </div>
                   <div className="flex justify-between text-sm mt-2">
                     <span className="text-gray-600">Tax</span>
-                    <span className="font-medium">${order.taxPrice.toFixed(2)}</span>
+                    <span className="font-medium">
+                      {order.taxPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                    </span>
                   </div>
                   <div className="flex justify-between text-base font-medium mt-4 pt-4 border-t border-gray-200">
                     <span className="text-gray-900">Total</span>
-                    <span className="text-gray-900">${order.totalPrice.toFixed(2)}</span>
+                    <span className="text-gray-900">
+                      {order.totalPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                    </span>
                   </div>
                 </div>
 

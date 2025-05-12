@@ -11,6 +11,7 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  getAdminStats,
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -33,4 +34,5 @@ router
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser);
 
+router.get('/admin/stats', protect, admin, getAdminStats);
 export default router;

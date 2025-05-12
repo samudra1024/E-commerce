@@ -1,12 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import { Trash, Minus, Plus } from 'lucide-react';
 
 const CartItem = ({ item }) => {
   const { updateQuantity, removeFromCart } = useContext(CartContext);
+  const [error, setError] = useState('');
 
   const handleQuantityChange = (newQuantity) => {
+    // Check for negative or zero quantity
+    if (newQuantity < 1) {
+      setError('Quantity cannot be less than 1');
+      return;
+    }
+    // Check if new quantity exceeds stock
+    if (newQuantity > item.countInStock) {
+      setError(`Maximum available: ${item.countInStock}`);
+      return;
+    }
+    // If valid, update and clear error
+    setError('');
     updateQuantity(item._id, newQuantity);
   };
 
@@ -56,7 +69,8 @@ const CartItem = ({ item }) => {
       </div>
       
       {/* Quantity Control */}
-      <div className="flex items-center space-x-1">
+      <div className="flex flex-col items-center space-y-1">
+        <div className="flex items-center space-x-1">
         <button 
           onClick={() => handleQuantityChange(item.quantity - 1)}
           disabled={item.quantity <= 1}
@@ -81,6 +95,10 @@ const CartItem = ({ item }) => {
         >
           <Plus className="h-4 w-4" />
         </button>
+        </div>
+        {error && (
+          <span className="text-xs text-red-500 mt-1">{error}</span>
+        )}
       </div>
       
       {/* Price & Remove */}

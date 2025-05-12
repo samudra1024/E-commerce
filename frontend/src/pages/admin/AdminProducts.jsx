@@ -17,7 +17,7 @@ const AdminProducts = () => {
 
   useEffect(() => {
     if (!isAdmin()) {
-      navigate('/');
+      navigate("/");
       return;
     }
     fetchProducts();
@@ -30,12 +30,17 @@ const AdminProducts = () => {
       const response = await axios.get("/api/products");
       setProducts(response.data.products || []);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to load products";
+      const errorMessage =
+        err.response?.data?.message || "Failed to load products";
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleUpdate = (productId) => {
+    navigate(`/admin/updateproduct/${productId}`);
   };
 
   const handleDelete = async (productId) => {
@@ -45,7 +50,8 @@ const AdminProducts = () => {
       toast.success("Product deleted successfully");
       setShowDeleteModal(false);
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to delete product";
+      const errorMessage =
+        err.response?.data?.message || "Failed to delete product";
       toast.error(errorMessage);
     }
   };
@@ -100,7 +106,7 @@ const AdminProducts = () => {
         </h1>
         <Link
           className="btn btn-primary flex items-center"
-          to={'/admin/newproduct'}
+          to={"/admin/newproduct"}
         >
           <Plus className="h-5 w-5 mr-2" />
           Add New Product
@@ -212,9 +218,7 @@ const AdminProducts = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
-                      onClick={() => {
-                        /* Handle edit */
-                      }}
+                      onClick={() => handleUpdate(product._id)}
                       className="text-blue-600 hover:text-blue-900 mr-4"
                     >
                       <Edit className="h-5 w-5" />

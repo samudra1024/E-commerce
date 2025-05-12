@@ -45,25 +45,37 @@ export const getMyOrders = async () => {
 
 // Cancel order
 export const cancelOrder = async (orderId) => {
-  const response = await axios.put(`/api/orders/${orderId}/cancel`, {}, {
-    headers: getAuthHeaders(),
-  });
+  const response = await axios.put(
+    `/api/orders/${orderId}/cancel`,
+    {},
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return response.data;
 };
 
 // Update order to paid
 export const updateOrderToPaid = async (orderId, paymentResult) => {
-  const response = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, {
-    headers: getAuthHeaders(),
-  });
+  const response = await axios.put(
+    `/api/orders/${orderId}/pay`,
+    paymentResult,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return response.data;
 };
 
 // Update order to delivered
 export const updateOrderToDelivered = async (orderId) => {
-  const response = await axios.put(`/api/orders/${orderId}/deliver`, {}, {
-    headers: getAuthHeaders(),
-  });
+  const response = await axios.put(
+    `/api/orders/${orderId}/deliver`,
+    {},
+    {
+      headers: getAuthHeaders(),
+    }
+  );
   return response.data;
 };
 

@@ -20,31 +20,17 @@ const AdminDashboard = () => {
       try {
         // In a real application, you would fetch this data from your API
         // For now, we'll use sample data
+        // Fetch stats
+        const statsRes = await axios.get('/api/users/admin/stats');
         setStats({
-          totalOrders: 156,
-          totalUsers: 842,
-          totalRevenue: 15679.45,
-          totalProducts: 89,
-          recentOrders: [
-            {
-              _id: '1',
-              user: { name: 'John Doe' },
-              totalPrice: 129.99,
-              status: 'Processing',
-              createdAt: new Date(),
-            },
-            // Add more sample orders
-          ],
-          lowStockProducts: [
-            {
-              _id: '1',
-              name: 'Wireless Headphones',
-              countInStock: 3,
-              price: 149.99,
-            },
-            // Add more sample products
-          ],
+          totalOrders: statsRes.data.totalOrders || 0,
+          totalUsers: statsRes.data.totalUsers || 0,
+          totalRevenue: statsRes.data.totalRevenue || 0,
+          totalProducts: statsRes.data.totalProducts || 0,
+          recentOrders: Array.isArray(statsRes.data.recentOrders) ? statsRes.data.recentOrders : [],
+          lowStockProducts: Array.isArray(statsRes.data.lowStockProducts) ? statsRes.data.lowStockProducts : [],
         });
+        
         setLoading(false);
       } catch (err) {
         setError('Failed to load dashboard data');
@@ -99,7 +85,7 @@ const AdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Orders</p>
-              <h3 className="text-xl font-bold text-gray-900">{stats.totalOrders}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{stats.totalOrders ?? 0}</h3>
             </div>
           </div>
         </div>
@@ -111,7 +97,7 @@ const AdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Users</p>
-              <h3 className="text-xl font-bold text-gray-900">{stats.totalUsers}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{stats.totalUsers ?? 0}</h3>
             </div>
           </div>
         </div>
@@ -124,7 +110,7 @@ const AdminDashboard = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Revenue</p>
               <h3 className="text-xl font-bold text-gray-900">
-                ${stats.totalRevenue.toFixed(2)}
+                ${Number(stats.totalRevenue ?? 0).toFixed(2)}
               </h3>
             </div>
           </div>
@@ -137,7 +123,7 @@ const AdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Products</p>
-              <h3 className="text-xl font-bold text-gray-900">{stats.totalProducts}</h3>
+              <h3 className="text-xl font-bold text-gray-900">{stats.totalProducts ?? 0}</h3>
             </div>
           </div>
         </div>
@@ -160,36 +146,42 @@ const AdminDashboard = () => {
           <div className="p-6">
             <div className="flow-root">
               <ul className="-my-5 divide-y divide-gray-200">
-                {stats.recentOrders.map((order) => (
-                  <li key={order._id} className="py-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          {order.user.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </p>
+                {(stats.recentOrders ?? []).length === 0 ? (
+                  <li className="py-5 text-gray-500">No recent orders.</li>
+                ) : (
+                  (stats.recentOrders ?? []).map((order) => (
+                    <li key={order?._id || Math.random()} className="py-5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">
+                            {order?.user?.name ?? "Unknown"}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {order?.createdAt
+                              ? new Date(order.createdAt).toLocaleDateString()
+                              : ""}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-sm font-medium text-gray-900">
+                            ${Number(order?.totalPrice ?? 0).toFixed(2)}
+                          </span>
+                          <span
+                            className={`ml-4 px-3 py-1 rounded-full text-xs font-medium ${
+                              order?.status === 'Processing'
+                                ? 'bg-blue-100 text-blue-800'
+                                : order?.status === 'Shipped'
+                                ? 'bg-orange-100 text-orange-800'
+                                : 'bg-green-100 text-green-800'
+                            }`}
+                          >
+                            {order?.status ?? "Unknown"}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <span className="text-sm font-medium text-gray-900">
-                          ${order.totalPrice.toFixed(2)}
-                        </span>
-                        <span
-                          className={`ml-4 px-3 py-1 rounded-full text-xs font-medium ${
-                            order.status === 'Processing'
-                              ? 'bg-blue-100 text-blue-800'
-                              : order.status === 'Shipped'
-                              ? 'bg-orange-100 text-orange-800'
-                              : 'bg-green-100 text-green-800'
-                          }`}
-                        >
-                          {order.status}
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </div>
@@ -211,23 +203,27 @@ const AdminDashboard = () => {
           <div className="p-6">
             <div className="flow-root">
               <ul className="-my-5 divide-y divide-gray-200">
-                {stats.lowStockProducts.map((product) => (
-                  <li key={product._id} className="py-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          {product.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          Stock: {product.countInStock} units
-                        </p>
+                {(stats.lowStockProducts ?? []).length === 0 ? (
+                  <li className="py-5 text-gray-500">No low stock products.</li>
+                ) : (
+                  (stats.lowStockProducts ?? []).map((product) => (
+                    <li key={product?._id || Math.random()} className="py-5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">
+                            {product?.name ?? "Unknown"}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Stock: {product?.countInStock ?? 0} units
+                          </p>
+                        </div>
+                        <div className="text-sm font-medium text-gray-900">
+                          ${Number(product?.price ?? 0).toFixed(2)}
+                        </div>
                       </div>
-                      <div className="text-sm font-medium text-gray-900">
-                        ${product.price.toFixed(2)}
-                      </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </div>

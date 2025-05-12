@@ -1,28 +1,28 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import { CartContext } from '../../context/CartContext';
-import { ShoppingCart, User, LogOut, Search, Menu, X } from 'lucide-react';
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { CartContext } from "../../context/CartContext";
+import { ShoppingCart, User, LogOut, Search, Menu, X } from "lucide-react";
 
 const Header = () => {
   const { user, logout, isAdmin } = useContext(AuthContext);
   const { itemCount } = useContext(CartContext);
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       navigate(`/products?search=${searchTerm}`);
-      setSearchTerm('');
+      setSearchTerm("");
       setIsMenuOpen(false);
     }
   };
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
     setIsMenuOpen(false);
   };
 
@@ -35,21 +35,42 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-blue-600 flex items-center">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-blue-600 flex items-center"
+          >
             ShopEase
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
               Home
             </Link>
-            <Link to="/products" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              to="/products"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
               Products
             </Link>
-            {isAdmin() && (
-              <Link to="/admin" className="text-gray-700 hover:text-blue-600 transition-colors">
+            {isAdmin() ? (
+              <Link
+                to="/admin"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Admin
+              </Link>
+            ) : (
+              <Link
+                to="/orders"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Your Orders
               </Link>
             )}
           </nav>
@@ -76,7 +97,10 @@ const Header = () => {
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
-            <Link to="/cart" className="relative text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              to="/cart"
+              className="relative text-gray-700 hover:text-blue-600 transition-colors"
+            >
               <ShoppingCart className="h-6 w-6" />
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -84,10 +108,13 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            
+
             {user ? (
               <div className="hidden md:flex items-center space-x-4">
-                <Link to="/profile" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center">
+                <Link
+                  to="/profile"
+                  className="text-gray-700 hover:text-blue-600 transition-colors flex items-center"
+                >
                   <User className="h-5 w-5 mr-1" />
                   <span className="font-medium">{user.name}</span>
                 </Link>
@@ -115,17 +142,21 @@ const Header = () => {
                 </Link>
               </div>
             )}
-            
+
             {/* Mobile menu button */}
             <button
               onClick={toggleMenu}
               className="md:hidden text-gray-700 focus:outline-none"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
@@ -144,7 +175,7 @@ const Header = () => {
               >
                 Products
               </Link>
-              {isAdmin() && (
+              {isAdmin() ? (
                 <Link
                   to="/admin"
                   className="text-gray-700 hover:text-blue-600 transition-colors"
@@ -152,9 +183,17 @@ const Header = () => {
                 >
                   Admin
                 </Link>
+              ) : (
+                <Link
+                  to="/orders"
+                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Your Orders
+                </Link>
               )}
             </nav>
-            
+
             {/* Search Form - Mobile */}
             <form onSubmit={handleSearch} className="flex items-center mb-4">
               <input
@@ -171,7 +210,7 @@ const Header = () => {
                 <Search className="h-5 w-5" />
               </button>
             </form>
-            
+
             {user ? (
               <div className="flex flex-col space-y-4">
                 <Link
