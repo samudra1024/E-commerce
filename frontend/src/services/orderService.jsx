@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import axiosInstance from '../config/axios';
 
 // Helper to get the latest token from sessionStorage
 const getAuthToken = () => {
@@ -23,70 +22,42 @@ const getAuthHeaders = () => {
 
 // Create new order
 export const createOrder = async (orderData) => {
-  try {
-    const response = await axios.post("/api/orders", orderData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.post("/api/orders", orderData);
+  return response.data;
 };
 
 // Get order by ID
 export const getOrderById = async (orderId) => {
-  try {
-    const response = await axios.get(`/api/orders/${orderId}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get(`/api/orders/${orderId}`);
+  return response.data;
 };
 
 // Get user's orders
 export const getMyOrders = async () => {
-  try {
-    const response = await axios.get("/api/orders/myorders");
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get("/api/orders/myorders");
+  return response.data;
 };
 
 // Cancel order
 export const cancelOrder = async (orderId) => {
-  try {
-    const response = await axios.put(`/api/orders/${orderId}/cancel`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.put(`/api/orders/${orderId}/cancel`);
+  return response.data;
 };
 
 // Update order to paid
 export const payOrder = async (orderId) => {
-  try {
-    const response = await axios.put(`/api/orders/${orderId}/pay`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.put(`/api/orders/${orderId}/pay`);
+  return response.data;
 };
 
 // Update order to delivered
 export const deliverOrder = async (orderId) => {
-  try {
-    const response = await axios.put(`/api/orders/${orderId}/deliver`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.put(`/api/orders/${orderId}/deliver`);
+  return response.data;
 };
 
 // Update order status
 export const updateOrderStatus = async (orderId, status) => {
-  try {
-    const response = await axios.put(`/api/orders/${orderId}/status`, { status });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.put(`/api/orders/${orderId}/status`, { status });
+  return response.data;
 };

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import ProductList from "../components/products/ProductList";
 import axios from "axios";
 import { Filter, ChevronDown, Check, X } from "lucide-react";
+import axiosInstance from '../config/axios';
 
 const ProductsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
+  const searchParams = useSearchParams()[0];
 
   // State
   const [products, setProducts] = useState([]);
@@ -34,72 +36,37 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);
-
-        // Build query parameters
         const params = new URLSearchParams();
-        if (selectedCategory) params.append("category", selectedCategory);
+        if (selectedCategory) params.append('category', selectedCategory);
         if (inStock) params.append("inStock", "true");
         if (onSale) params.append("onSale", "true");
         if (searchTerm) params.append("search", searchTerm);
         if (priceRange.min) params.append("minPrice", priceRange.min);
         if (priceRange.max) params.append("maxPrice", priceRange.max);
+        if (sortOption) params.append("sort", sortOption);
+        if (page) params.append("page", page);
 
-        // Handle sorting
-        switch (sortOption) {
-          case "newest":
-            params.append("sort", "-createdAt");
-            break;
-          case "priceLow":
-            params.append("sort", "price");
-            break;
-          case "priceHigh":
-            params.append("sort", "-price");
-            break;
-          case "popularity":
-            params.append("sort", "-numReviews");
-            break;
-          case "rating":
-            params.append("sort", "-rating");
-            break;
-          default:
-            params.append("sort", "-createdAt");
-        }
-        // console.log('params')
-
-        // Pagination
-        params.append("page", page.toString());
-        params.append("limit", (12).toString());
-
-        // Make API request
-        console.log(params);
-        const response = await axios.get(`/api/products?${params.toString()}`);
+        const response = await axiosInstance.get(`/api/products?${params.toString()}`);
         setProducts(response.data.products);
-        console.log(Array.isArray(products));
         setTotalPages(response.data.totalPages);
         setLoading(false);
-      } catch (err) {
-        setError("Failed to load products. Please try again later.");
+      } catch (error) {
+        setError(error.message);
         setLoading(false);
-        console.error("Error fetching products:", err);
       }
     };
 
-    // Fetch categories if not already loaded
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("/api/products/categories");
+        const response = await axiosInstance.get("/api/products/categories");
         setCategories(response.data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
       }
     };
 
-    if (categories.length === 0) {
-      fetchCategories();
-    }
-
     fetchProducts();
+    fetchCategories();
 
     // Update URL with current filters
     const params = new URLSearchParams();

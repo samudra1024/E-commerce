@@ -12,7 +12,7 @@ import {
   Check,
   Truck,
 } from "lucide-react";
-import axios from "axios";
+import axiosInstance from '../config/axios';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -37,7 +37,7 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/api/products/${id}`);
+        const response = await axiosInstance.get(`/api/products/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (error) {
@@ -48,7 +48,7 @@ const ProductDetailPage = () => {
 
     const fetchWishlist = async () => {
       try {
-        const wishlistRes = await axios.get("/api/users/wishlist");
+        const wishlistRes = await axiosInstance.get("/api/users/wishlist");
         setIsWishlist(wishlistRes.data.some((item) => item._id === id));
       } catch (error) {
         console.error("Error fetching wishlist:", error);
@@ -57,7 +57,7 @@ const ProductDetailPage = () => {
 
     const fetchRelatedProducts = async () => {
       try {
-        const relatedRes = await axios.get(`/api/products/related/${id}`);
+        const relatedRes = await axiosInstance.get(`/api/products/related/${id}`);
         setRelatedProducts(relatedRes.data);
       } catch (error) {
         console.error("Error fetching related products:", error);
@@ -82,10 +82,10 @@ const ProductDetailPage = () => {
     
     try {
       if (isWishlist) {
-        await axios.delete(`/api/users/wishlist/${id}`);
+        await axiosInstance.delete(`/api/users/wishlist/${id}`);
         toast.success("Removed from wishlist");
       } else {
-        await axios.post("/api/users/wishlist", { productId: id });
+        await axiosInstance.post("/api/users/wishlist", { productId: id });
         toast.success("Added to wishlist");
       }
       
@@ -118,7 +118,7 @@ const ProductDetailPage = () => {
     setReviewLoading(true);
     try {
       // POST review to backend
-      await axios.post(`/api/products/${id}/reviews`, {
+      await axiosInstance.post(`/api/products/${id}/reviews`, {
         rating: reviewRating,
         comment: reviewComment,
       });
@@ -127,7 +127,7 @@ const ProductDetailPage = () => {
       toast.success("Review submitted!");
       
       // Fetch updated product details (including new reviews)
-      const updatedProduct = await axios.get(`/api/products/${id}`);
+      const updatedProduct = await axiosInstance.get(`/api/products/${id}`);
       setProduct(updatedProduct.data);
       
       // Reset form

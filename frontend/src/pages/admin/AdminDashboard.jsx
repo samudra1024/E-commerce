@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../config/axios';
 import { ShoppingBag, Users, CreditCard, Package, TrendingUp, AlertCircle } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -16,29 +16,16 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
+    const fetchStats = async () => {
       try {
-        // In a real application, you would fetch this data from your API
-        // For now, we'll use sample data
-        // Fetch stats
-        const statsRes = await axios.get('/api/users/admin/stats');
-        setStats({
-          totalOrders: statsRes.data.totalOrders || 0,
-          totalUsers: statsRes.data.totalUsers || 0,
-          totalRevenue: statsRes.data.totalRevenue || 0,
-          totalProducts: statsRes.data.totalProducts || 0,
-          recentOrders: Array.isArray(statsRes.data.recentOrders) ? statsRes.data.recentOrders : [],
-          lowStockProducts: Array.isArray(statsRes.data.lowStockProducts) ? statsRes.data.lowStockProducts : [],
-        });
-        
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load dashboard data');
-        setLoading(false);
+        const statsRes = await axiosInstance.get("/api/users/admin/stats");
+        setStats(statsRes.data);
+      } catch (error) {
+        console.error("Error fetching stats:", error);
       }
     };
 
-    fetchDashboardData();
+    fetchStats();
   }, []);
 
   if (loading) {

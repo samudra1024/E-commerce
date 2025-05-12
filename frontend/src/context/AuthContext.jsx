@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../config/axios';
 
 export const AuthContext = createContext(null);
 
@@ -10,16 +10,16 @@ export const AuthProvider = ({ children }) => {
 
   // Load user from sessionStorage on initial render
   useEffect(() => {
-    const storedUser = sessionStorage.getItem('user');
+    const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
         // Set default axios authorization header
-        axios.defaults.headers.common['Authorization'] = parsedUser.token;
+        axiosInstance.defaults.headers.common['Authorization'] = parsedUser.token;
       } catch (err) {
         console.error('Error parsing stored user:', err);
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('user');
       }
     }
     setLoading(false);
@@ -30,13 +30,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.post('/api/users/', userData);
+      const res = await axiosInstance.post('/api/users/', userData);
       
       if (res.data) {
-        sessionStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('user', JSON.stringify(res.data));
         setUser(res.data);
         // Set default axios authorization header
-        axios.defaults.headers.common['Authorization'] = res.data.token;
+        axiosInstance.defaults.headers.common['Authorization'] = res.data.token;
       }
       return res.data;
     } catch (err) {
@@ -53,13 +53,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.post('/api/users/login', { email, password });
+      const res = await axiosInstance.post('/api/users/login', { email, password });
       
       if (res.data) {
-        sessionStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('user', JSON.stringify(res.data));
         setUser(res.data);
         // Set default axios authorization header
-        axios.defaults.headers.common['Authorization'] = res.data.token;
+        axiosInstance.defaults.headers.common['Authorization'] = res.data.token;
       }
       return res.data;
     } catch (err) {
@@ -73,10 +73,10 @@ export const AuthProvider = ({ children }) => {
 
   // Logout user
   const logout = () => {
-    sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
     setUser(null);
     // Remove axios authorization header
-    delete axios.defaults.headers.common['Authorization'];
+    delete axiosInstance.defaults.headers.common['Authorization'];
   };
 
   // Check if user is authenticated

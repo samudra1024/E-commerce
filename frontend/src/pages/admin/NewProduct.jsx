@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from '../../config/axios';
 import { toast } from "react-toastify";
 import { Upload, Plus, X, Loader2 } from "lucide-react";
 import  AuthContext  from "../../context/AuthContext";
@@ -178,57 +178,26 @@ const CreateProductForm = () => {
   // Update the handleImageUpload function in NewProduct.jsx
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-
-    // Validate file type and size
-    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-    if (!validTypes.includes(file.type)) {
-      toast.error("Only JPG, PNG, GIF, or WEBP images are allowed");
-      return;
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("Image size must be less than 10MB");
-      return;
-    }
-
-    const uploadData = new FormData();
-    uploadData.append("image", file);
+    const formData = new FormData();
+    formData.append("image", file);
 
     try {
-      setImageUploading(true);
-      const token = getToken();
-      if (!token) throw new Error("No token found");
-      if (!isAdmin) {
-        toast.error("Only admin users can create products");
-        setImageUploading(false);
-        return;
-      }
-
-      const response = await axios.post("/api/upload", uploadData, {
+      const response = await axiosInstance.post("/api/upload", formData, {
         headers: {
-          Authorization: token,
           "Content-Type": "multipart/form-data",
         },
       });
-
-      if (response.data?.url) {
-        setFormData((prev) => ({
-          ...prev,
-          image: response.data.url,
-        }));
-        toast.success("Image uploaded successfully");
-        if (errors["image"]) {
-          setErrors((prev) => ({ ...prev, image: undefined }));
-        }
-      } else {
-        throw new Error("No image URL returned");
+      setFormData((prev) => ({
+        ...prev,
+        image: response.data.url,
+      }));
+      toast.success("Image uploaded successfully");
+      if (errors["image"]) {
+        setErrors((prev) => ({ ...prev, image: undefined }));
       }
     } catch (error) {
-      console.error("Upload error:", error);
+      console.error("Error uploading image:", error);
       toast.error(error.response?.data?.message || "Failed to upload image");
-    } finally {
-      setImageUploading(false);
     }
   };
 
@@ -246,11 +215,11 @@ const CreateProductForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/products", formData);
+      const response = await axiosInstance.post("/api/products", formData);
       toast.success("Product created successfully");
       navigate("/admin/products");
     } catch (error) {
-      console.error("Submit error:", error);
+      console.error("Error creating product:", error);
       toast.error(error.response?.data?.message || "Failed to create product");
     } finally {
       setLoading(false);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductList from "../components/products/ProductList";
-import axios from "axios";
+import axiosInstance from '../config/axios';
 import {
   ArrowRight,
   Truck,
@@ -17,32 +17,23 @@ const HomePage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchHomePageData = async () => {
+    const fetchProducts = async () => {
       try {
-        setLoading(true);
-        // Get featured products
-        const featuredRes = await axios.get(
-          `/api/products?featured=true&limit=4`
+        const featuredRes = await axiosInstance.get(
+          "/api/products?featured=true&limit=4"
         );
-        const ArrayfeaturedRes = [...[featuredRes.data]];
-        setFeaturedProducts(ArrayfeaturedRes);
+        setFeaturedProducts(featuredRes.data);
 
-        // Get new arrivals
-        const newArrivalsRes = await axios.get(
-          "/api/products?sort=createdAt&limit=8"
+        const newArrivalsRes = await axiosInstance.get(
+          "/api/products?sort=-createdAt&limit=4"
         );
-        const ArraynewArrivalsRes = [...[newArrivalsRes.data]];
-        setNewArrivals(ArraynewArrivalsRes);
-
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load products. Please try again later.");
-        setLoading(false);
-        console.error("Error fetching home page data:", err);
+        setNewArrivals(newArrivalsRes.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
       }
     };
 
-    fetchHomePageData();
+    fetchProducts();
   }, []);
 
   return (

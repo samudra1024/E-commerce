@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import axiosInstance from '../../config/axios';
 import { toast } from "react-toastify";
 import { Plus, Edit, Trash2, Search, AlertCircle } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
@@ -27,7 +27,7 @@ const AdminProducts = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get("/api/products");
+      const response = await axiosInstance.get("/api/products");
       setProducts(response.data.products || []);
     } catch (err) {
       const errorMessage =
@@ -45,7 +45,7 @@ const AdminProducts = () => {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`/api/products/${productId}`);
+      await axiosInstance.delete(`/api/products/${productId}`);
       setProducts(products.filter((p) => p._id !== productId));
       toast.success("Product deleted successfully");
       setShowDeleteModal(false);

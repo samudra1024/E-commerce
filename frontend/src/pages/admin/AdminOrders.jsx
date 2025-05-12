@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../config/axios';
 import { toast } from 'react-toastify';
 import { Package, Truck, CheckCircle, AlertCircle, Clock, XCircle, Search } from 'lucide-react';
 
@@ -23,44 +23,43 @@ const AdminOrders = () => {
   }
 
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axiosInstance.get("/api/orders", {
+          params: { status: filterStatus },
+        });
+        setOrders(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setError(
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to load orders'
+        );
+        setLoading(false);
+      }
+    };
+
     fetchOrders();
-    // eslint-disable-next-line
-  }, []);
+  }, [filterStatus]);
 
-  const fetchOrders = async () => {
+  const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const response = await axios.get('/api/orders', {
-        headers: { Authorization: token }
+      await axiosInstance.put(`/api/orders/${orderId}/status`, {
+        status: newStatus,
       });
-      setOrders(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError(
-        err?.response?.data?.message ||
-        err?.message ||
-        'Failed to load orders'
+      setOrders(
+        orders.map((order) =>
+          order._id === orderId ? { ...order, status: newStatus } : order
+        )
       );
-      setLoading(false);
-    }
-  };
-
-  const handleStatusChange = async (orderId, status) => {
-    try {
-      await axios.put(
-        `/api/orders/${orderId}/status`,
-        { status },
-        {
-          headers: { Authorization: token }
-        }
-      );
-      setOrders(orders.map(order =>
-        order._id === orderId ? { ...order, status } : order
-      ));
       toast.success('Order status updated successfully');
-    } catch (err) {
+    } catch (error) {
+      console.error("Error updating order status:", error);
       toast.error(
-        err?.response?.data?.message ||
-        err?.message ||
+        error?.response?.data?.message ||
+        error?.message ||
         'Failed to update order status'
       );
     }

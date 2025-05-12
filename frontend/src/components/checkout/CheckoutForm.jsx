@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { CartContext } from "../../context/CartContext";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axiosInstance from '../../config/axios';
 
 const CheckoutForm = () => {
   const { user } = useContext(AuthContext);
@@ -76,6 +76,7 @@ const CheckoutForm = () => {
             ? (total + total * 0.1).toFixed(2)
             : (total + total * 0.1 + 10).toFixed(2),
       };
+
       // Retrieve token from sessionStorage
       let token = "";
       const userStr = sessionStorage.getItem("user");
@@ -88,8 +89,10 @@ const CheckoutForm = () => {
       }
 
       // Send order to backend
-      const response = await axios.post("/api/orders", order, {
-        headers: { Authorization: token },
+      const response = await axiosInstance.post("/api/orders", order, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       // Clear cart after successful order

@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById, updateProduct } from "../../services/productService";
 import { Upload, Plus, X, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
-import axios from "axios";
+import axiosInstance from '../../config/axios';
 
 const defaultFormData = {
   name: "",
@@ -116,54 +115,21 @@ const UpdateProductDetails = () => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-
-    // Validate file type and size
-    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-    if (!validTypes.includes(file.type)) {
-      toast.error("Only JPG, PNG, GIF, or WEBP images are allowed");
-      return;
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("Image size must be less than 10MB");
-      return;
-    }
-
-    const uploadData = new FormData();
-    uploadData.append("image", file);
+    const formData = new FormData();
+    formData.append("image", file);
 
     try {
-      setImageUploading(true);
-      const token = getToken();
-      if (!token) throw new Error("No token found");
-      if (!isAdmin) {
-        toast.error("Only admin users can create products");
-        setImageUploading(false);
-        return;
-      }
-
-      const response = await axios.post("/api/upload", uploadData, {
+      const response = await axiosInstance.post("/api/upload", formData, {
         headers: {
-          Authorization: token,
           "Content-Type": "multipart/form-data",
         },
       });
-
-      if (response.data?.url) {
-        setFormData((prev) => ({
-          ...prev,
-          image: response.data.url,
-        }));
-        toast.success("Image uploaded successfully");
-      } else {
-        throw new Error("No image URL returned");
-      }
+      setFormData((prev) => ({
+        ...prev,
+        image: response.data.url,
+      }));
     } catch (error) {
-      console.error("Upload error:", error);
-      toast.error(error.response?.data?.message || "Failed to upload image");
-    } finally {
-      setImageUploading(false);
+      console.error("Error uploading image:", error);
     }
   };
 
