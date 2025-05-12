@@ -26,7 +26,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://your-vercel-app.vercel.app', // Your Vercel URL
+    'http://localhost:3000' // For local development
+  ],
+  credentials: true
+}));
 
 // Routes
 app.use('/api/products', productRoutes);
