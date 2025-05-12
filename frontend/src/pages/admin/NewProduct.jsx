@@ -22,15 +22,8 @@ const initialFormData = {
 
 const CreateProductForm = () => {
   const navigate = useNavigate();
-  const {
-    user,
-    isAdmin,
-    isAuthenticated,
-    getToken,
-    logout,
-    loading: authLoading,
-    error: authError,
-  } = useContext(AuthContext);
+  const { user, isAdmin, isAuthenticated, getToken, logout } =
+    useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
@@ -56,7 +49,7 @@ const CreateProductForm = () => {
 
     if (
       !formData.price ||
-      isNaN(Number(formData.price)) ||
+      isNaN(parseInt(formData.price)) ||
       parseFloat(formData.price) <= 0
     ) {
       newErrors.price = "Valid price is required";
@@ -76,7 +69,7 @@ const CreateProductForm = () => {
 
     if (
       !formData.countInStock ||
-      isNaN(Number(formData.countInStock)) ||
+      isNaN(parseInt(formData.countInStock)) ||
       parseInt(formData.countInStock) < 0
     ) {
       newErrors.countInStock = "Valid stock quantity is required";
@@ -182,11 +175,12 @@ const CreateProductForm = () => {
     }));
   };
 
+  // Update the handleImageUpload function in NewProduct.jsx
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validate file type and size (same as before)
+    // Validate file type and size
     const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
     if (!validTypes.includes(file.type)) {
       toast.error("Only JPG, PNG, GIF, or WEBP images are allowed");
@@ -212,14 +206,17 @@ const CreateProductForm = () => {
       }
 
       const response = await axios.post("/api/upload", uploadData, {
-        headers: { Authorization: token },
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      // Ensure the response contains the correct URL
-      console.log("Image upload response:", response.data.url);
       if (response.data?.url) {
-        // Use a callback to ensure immediate state update
-        setFormData((prev) => ({ ...prev, image: response.data.url }));
+        setFormData((prev) => ({
+          ...prev,
+          image: response.data.url,
+        }));
         toast.success("Image uploaded successfully");
         if (errors["image"]) {
           setErrors((prev) => ({ ...prev, image: undefined }));
@@ -234,6 +231,10 @@ const CreateProductForm = () => {
       setImageUploading(false);
     }
   };
+
+  // Make sure your server is serving static files from the uploads directory
+  // Add this to your main server file (usually server.js or app.js):
+  // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -448,7 +449,7 @@ const CreateProductForm = () => {
                     id="image"
                     name="image"
                     type="file"
-                    accept="/uploads/*"
+                    accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
                     onChange={handleImageUpload}
                     className="sr-only"
                   />
@@ -461,7 +462,7 @@ const CreateProductForm = () => {
             </div>
           </div>
         )}
-        {formData.image && (
+        {formData.image ? (
           <div className="mt-4 flex flex-col items-center">
             <div className="relative">
               <img
@@ -482,6 +483,10 @@ const CreateProductForm = () => {
               Image uploaded successfully
             </p>
           </div>
+        ) : (
+          <p className="mt-4 text-sm text-gray-500">
+            Please upload an image to preview the product
+          </p>
         )}
       </div>
 

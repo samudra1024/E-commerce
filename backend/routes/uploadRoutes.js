@@ -13,10 +13,10 @@ const __dirname = path.dirname(__filename);
 // Configure storage
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, path.join(__dirname, '..', 'uploads/'));
+    return cb(null, path.join(__dirname, '../uploads/'));
   },
   filename(req, file, cb) {
-    cb(
+    return cb(
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
     );
@@ -24,12 +24,6 @@ const storage = multer.diskStorage({
 });
 
 // Check file type
-
-/**
- * Checks if the provided file is a valid image (jpg, jpeg, png).
- * @param {Object} file - The file object with 'originalname' and 'mimetype'.
- * @param {Function} cb - Callback function to handle the result.
- */
 function checkFileType(file, cb) {
   const filetypes = /jpe?g|png|gif|webp/i;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -58,14 +52,13 @@ router.post(
   admin,
   upload.single('image'),
   (req, res) => {
-    console.log(req.file)
     if (!req.file) {
       return res.status(400).json({ message: 'No image file uploaded.' });
     }
-    //Get relative path of the image in req.file
-    console.log(req.file.path)
-    console.log({ url: `/${req.file.path.replace(/\\/g, '/')}` })
-    res.json({ url: `/${req.file.path.replace(/\\/g, '/')}` });
+    
+    // Return the full URL path to the image
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    res.json({ url: imageUrl });
   }
 );
 
