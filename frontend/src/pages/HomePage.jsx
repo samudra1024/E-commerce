@@ -22,6 +22,7 @@ const HomePage = () => {
         const featuredRes = await axiosInstance.get(
           "/api/products?featured=true&limit=4"
         );
+        console.log(featuredRes.data)
         setFeaturedProducts(featuredRes.data);
 
         const newArrivalsRes = await axiosInstance.get(

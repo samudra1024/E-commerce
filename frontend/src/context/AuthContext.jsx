@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   // Load user from sessionStorage on initial render
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = sessionStorage.getItem('user');
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         axiosInstance.defaults.headers.common['Authorization'] = parsedUser.token;
       } catch (err) {
         console.error('Error parsing stored user:', err);
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
       }
     }
     setLoading(false);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       const res = await axiosInstance.post('/api/users/', userData);
       
       if (res.data) {
-        localStorage.setItem('user', JSON.stringify(res.data));
+        sessionStorage.setItem('user', JSON.stringify(res.data));
         setUser(res.data);
         // Set default axios authorization header
         axiosInstance.defaults.headers.common['Authorization'] = res.data.token;
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
       const res = await axiosInstance.post('/api/users/login', { email, password });
       
       if (res.data) {
-        localStorage.setItem('user', JSON.stringify(res.data));
+        sessionStorage.setItem('user', JSON.stringify(res.data));
         setUser(res.data);
         // Set default axios authorization header
         axiosInstance.defaults.headers.common['Authorization'] = res.data.token;
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
   // Logout user
   const logout = () => {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     setUser(null);
     // Remove axios authorization header
     delete axiosInstance.defaults.headers.common['Authorization'];
