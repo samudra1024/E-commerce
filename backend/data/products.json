@@ -1,9 +1,9 @@
+
 [
   {
     "name": "Wireless Headphones",
     "image": "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Experience immersive sound with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.",
+    "description": "Experience immersive sound with our premium wireless headphones. Featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions for all-day listening.",
     "brand": "SoundMaster",
     "category": "Electronics",
     "price": 149.99,
@@ -27,496 +27,326 @@
       "Battery Life": "40 hours",
       "Charging Time": "2 hours",
       "Weight": "250g"
-    }
-  },
-  {
-    "name": "Smartphone X Pro",
-    "image": "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "The latest flagship smartphone with cutting-edge features. Powered by a fast processor, featuring a high-resolution display, 5G connectivity, and a professional-grade camera system.",
-    "brand": "TechGiant",
-    "category": "Electronics",
-    "price": 899.99,
-    "countInStock": 7,
-    "rating": 4.8,
-    "numReviews": 102,
-    "discount": 0,
-    "featured": true,
-    "features": [
-      "6.7-inch Super AMOLED display",
-      "5G connectivity",
-      "Pro-grade camera system with 3 lenses",
-      "All-day battery with fast charging",
-      "Water and dust resistant",
-      "Face and fingerprint unlock"
-    ],
-    "specifications": {
-      "Display": "6.7-inch Super AMOLED",
-      "Processor": "Octa-core 2.8GHz",
-      "RAM": "8GB",
-      "Storage": "256GB",
-      "Battery": "4500mAh",
-      "OS": "Android 13"
-    }
-  },
-  {
-    "name": "Designer Watch",
-    "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Elegant designer watch with premium craftsmanship. Features a classic leather strap, quartz movement, and water-resistant casing. Perfect for formal occasions or everyday wear.",
-    "brand": "Chronos",
-    "category": "Accessories",
-    "price": 199.99,
-    "countInStock": 15,
-    "rating": 4.3,
-    "numReviews": 38,
-    "discount": 15,
-    "featured": true,
-    "features": [
-      "Premium leather strap",
-      "Swiss quartz movement",
-      "Sapphire crystal glass",
-      "Water-resistant to 50m",
-      "Date display",
-      "Stainless steel case"
-    ],
-    "specifications": {
-      "Case Diameter": "42mm",
-      "Band Material": "Genuine Leather",
-      "Movement Type": "Swiss Quartz",
-      "Water Resistance": "50m",
-      "Battery Life": "3 years",
-      "Weight": "78g"
-    }
-  },
-  {
-    "name": "Coffee Maker Deluxe",
-    "image": "https://images.pexels.com/photos/2608388/pexels-photo-2608388.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Advanced coffee maker with built-in grinder and multiple brewing options. Programmable timer allows you to wake up to freshly brewed coffee every morning.",
-    "brand": "HomeStyle",
-    "category": "Home & Kitchen",
-    "price": 129.99,
-    "countInStock": 12,
-    "rating": 4.2,
-    "numReviews": 56,
-    "discount": 0,
-    "featured": true,
-    "features": [
-      "Built-in conical burr grinder",
-      "Programmable timer",
-      "Multiple brewing options",
-      "10-cup capacity",
-      "Reusable filter included",
-      "Auto-shutoff feature"
-    ],
-    "specifications": {
-      "Capacity": "10 cups",
-      "Power": "1000W",
-      "Water Tank": "1.5L",
-      "Dimensions": "25 x 20 x 35 cm",
-      "Material": "Stainless Steel",
-      "Filter Type": "Permanent"
-    }
-  },
-  {
-    "name": "Wireless Earbuds",
-    "image": "https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "True wireless earbuds with outstanding sound quality. Features active noise cancellation, touch controls, and a charging case that provides up to 24 hours of total playtime.",
-    "brand": "SoundMaster",
-    "category": "Electronics",
-    "price": 79.99,
-    "countInStock": 20,
-    "rating": 4.3,
-    "numReviews": 89,
-    "discount": 0,
-    "featured": false,
-    "features": [
-      "True wireless design",
-      "Active noise cancellation",
-      "Touch controls",
-      "IPX7 waterproof rating",
-      "6-hour battery life (24 with case)",
-      "USB-C fast charging"
-    ],
-    "specifications": {
-      "Driver Size": "8mm",
-      "Frequency Response": "20Hz-20kHz",
-      "Battery Life": "6 hours (24 with case)",
-      "Charging Time": "1.5 hours",
-      "Bluetooth Version": "5.2",
-      "Weight": "5g each"
-    }
-  },
-  {
-    "name": "Bluetooth Speaker",
-    "image": "https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Portable Bluetooth speaker with 360° sound and deep bass. Waterproof design makes it perfect for outdoor use, while the 12-hour battery life keeps the music going all day.",
-    "brand": "SoundMaster",
-    "category": "Electronics",
-    "price": 99.99,
-    "countInStock": 8,
-    "rating": 4.1,
-    "numReviews": 56,
-    "discount": 15,
-    "featured": false,
-    "features": [
-      "360° sound distribution",
-      "IPX7 waterproof rating",
-      "12-hour battery life",
-      "Built-in microphone for calls",
-      "Connect multiple speakers",
-      "Durable fabric design"
-    ],
-    "specifications": {
-      "Power Output": "20W",
-      "Battery Capacity": "3600mAh",
-      "Frequency Response": "60Hz-20kHz",
-      "Bluetooth Range": "30m",
-      "Dimensions": "18 x 7 x 7 cm",
-      "Weight": "550g"
-    }
-  },
-  {
-    "name": "Athletic Shoes",
-    "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "High-performance athletic shoes designed for comfort and support. Features breathable mesh upper, responsive cushioning, and durable outsole for all-day comfort during workouts.",
-    "brand": "SportElite",
-    "category": "Clothing",
-    "price": 89.99,
-    "countInStock": 25,
-    "rating": 4.6,
-    "numReviews": 73,
-    "discount": 0,
-    "featured": false,
-    "features": [
-      "Breathable mesh upper",
-      "Responsive cushioning",
-      "Durable rubber outsole",
-      "Removable insole",
-      "Reinforced heel support",
-      "Reflective details for visibility"
-    ],
-    "specifications": {
-      "Upper Material": "Mesh and synthetic",
-      "Sole Material": "Rubber",
-      "Cushioning": "EVA foam",
-      "Weight": "255g per shoe",
-      "Arch Type": "Neutral",
-      "Available Sizes": "7-13 US"
-    }
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
     "name": "Smart Fitness Watch",
-    "image": "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Advanced fitness tracker with heart rate monitoring, GPS, and multiple sport modes. Track your workouts, sleep, and health metrics with this waterproof smart watch.",
-    "brand": "TechFit",
-    "category": "Electronics",
-    "price": 149.99,
-    "countInStock": 18,
-    "rating": 4.4,
-    "numReviews": 62,
-    "discount": 10,
+    "image": "https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Track your health and fitness with our advanced smart watch. Features heart rate monitoring, GPS, sleep tracking, and customizable watch faces.",
+    "brand": "FitPulse",
+    "category": "Wearables",
+    "price": 99.99,
+    "countInStock": 25,
+    "rating": 4.2,
+    "numReviews": 32,
+    "discount": 15,
     "featured": false,
     "features": [
-      "24/7 heart rate monitoring",
+      "Heart Rate Monitoring",
       "Built-in GPS",
-      "20+ sport modes",
-      "Sleep tracking",
-      "5 ATM water resistance",
-      "7-day battery life"
+      "Sleep Tracking",
+      "Water Resistant",
+      "Customizable Watch Faces",
+      "Long Battery Life"
     ],
     "specifications": {
       "Display": "1.3-inch AMOLED",
-      "Battery Life": "Up to 7 days",
+      "Battery Life": "7 days",
       "Water Resistance": "5 ATM",
-      "Sensors": "Heart rate, accelerometer, gyroscope, GPS",
-      "Connectivity": "Bluetooth 5.0",
-      "Compatibility": "iOS 11+ and Android 7.0+"
-    }
+      "Weight": "50g",
+      "Compatibility": "iOS & Android"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
-    "name": "Wireless Noise Cancelling Headphones",
-    "image": "https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Experience immersive sound with active noise cancellation and up to 30 hours of battery life. Comfortable over-ear design and touch controls.",
-    "brand": "SoundMax",
-    "category": "Electronics",
-    "price": 199.99,
-    "countInStock": 25,
-    "rating": 4.7,
-    "numReviews": 120,
-    "discount": 15,
-    "featured": true,
-    "features": [
-      "Active noise cancellation",
-      "30-hour battery life",
-      "Touch controls",
-      "Bluetooth 5.1",
-      "Quick charge"
-    ],
-    "specifications": {
-      "Driver Size": "40mm",
-      "Battery Life": "Up to 30 hours",
-      "Weight": "250g",
-      "Connectivity": "Bluetooth 5.1, 3.5mm jack",
-      "Microphone": "Built-in"
-    }
-  },
-  {
-    "name": "4K Ultra HD Smart TV 55\"",
+    "name": "4K Ultra HD Smart TV",
     "image": "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Enjoy stunning visuals with this 55-inch 4K Ultra HD Smart TV. Features HDR, built-in streaming apps, and voice control compatibility.",
+    "description": "Enjoy stunning visuals with our 55-inch 4K Ultra HD Smart TV. Features HDR, built-in streaming apps, and voice control.",
     "brand": "VisionX",
     "category": "Electronics",
     "price": 599.99,
-    "countInStock": 10,
-    "rating": 4.5,
-    "numReviews": 89,
+    "countInStock": 8,
+    "rating": 4.7,
+    "numReviews": 60,
     "discount": 20,
     "featured": true,
     "features": [
-      "4K Ultra HD resolution",
-      "HDR10 support",
-      "Smart TV apps",
-      "Voice control",
-      "3 HDMI ports"
+      "4K Ultra HD Resolution",
+      "HDR10+ Support",
+      "Built-in Streaming Apps",
+      "Voice Control",
+      "Slim Bezel Design",
+      "Multiple HDMI Ports"
     ],
     "specifications": {
       "Screen Size": "55 inches",
       "Resolution": "3840 x 2160",
-      "Refresh Rate": "60Hz",
-      "Smart Platform": "Android TV",
-      "Connectivity": "Wi-Fi, HDMI, USB"
-    }
+      "Refresh Rate": "120Hz",
+      "HDMI Ports": "4",
+      "Weight": "14kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
-    "name": "Ergonomic Wireless Mouse",
-    "image": "https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Reduce wrist strain with this ergonomic wireless mouse. Features adjustable DPI, silent clicks, and long battery life.",
-    "brand": "ErgoTech",
-    "category": "Computers",
-    "price": 29.99,
-    "countInStock": 50,
-    "rating": 4.2,
-    "numReviews": 34,
+    "name": "Ergonomic Office Chair",
+    "image": "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Work comfortably with our ergonomic office chair. Adjustable lumbar support, breathable mesh, and 360-degree swivel.",
+    "brand": "ComfortSeat",
+    "category": "Furniture",
+    "price": 189.99,
+    "countInStock": 15,
+    "rating": 4.3,
+    "numReviews": 27,
     "discount": 5,
     "featured": false,
     "features": [
-      "Ergonomic design",
-      "Adjustable DPI",
-      "Silent clicks",
-      "2.4GHz wireless",
-      "18-month battery life"
+      "Adjustable Lumbar Support",
+      "Breathable Mesh Back",
+      "360-degree Swivel",
+      "Height Adjustable",
+      "Tilt Lock Mechanism",
+      "Padded Armrests"
     ],
     "specifications": {
-      "DPI": "800/1200/1600",
-      "Battery": "AA (included)",
-      "Weight": "95g",
-      "Connectivity": "USB receiver",
-      "Compatibility": "Windows, Mac, Linux"
-    }
+      "Material": "Mesh & Foam",
+      "Weight Capacity": "120kg",
+      "Seat Height": "45-55cm",
+      "Color": "Black",
+      "Warranty": "2 years"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Stainless Steel Blender",
+    "image": "https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Blend smoothies, soups, and sauces with ease. Features a powerful motor, multiple speed settings, and easy-clean design.",
+    "brand": "BlendPro",
+    "category": "Home Appliances",
+    "price": 79.99,
+    "countInStock": 20,
+    "rating": 4.6,
+    "numReviews": 38,
+    "discount": 12,
+    "featured": true,
+    "features": [
+      "Powerful 1000W Motor",
+      "Multiple Speed Settings",
+      "Pulse Function",
+      "Easy-Clean Design",
+      "Stainless Steel Blades",
+      "Large Capacity Jar"
+    ],
+    "specifications": {
+      "Power": "1000W",
+      "Capacity": "1.5L",
+      "Blades": "Stainless Steel",
+      "Weight": "2.5kg",
+      "Warranty": "1 year"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Gaming Mechanical Keyboard",
+    "image": "https://images.pexels.com/photos/845255/pexels-photo-845255.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Enhance your gaming experience with our RGB mechanical keyboard. Features tactile switches, customizable lighting, and anti-ghosting keys.",
+    "brand": "KeyBlaze",
+    "category": "Computers",
+    "price": 69.99,
+    "countInStock": 30,
+    "rating": 4.8,
+    "numReviews": 52,
+    "discount": 8,
+    "featured": false,
+    "features": [
+      "RGB Backlighting",
+      "Tactile Mechanical Switches",
+      "Customizable Lighting Effects",
+      "Anti-Ghosting Keys",
+      "Detachable Wrist Rest",
+      "Durable Build"
+    ],
+    "specifications": {
+      "Switch Type": "Blue Mechanical",
+      "Key Rollover": "N-Key",
+      "Backlight": "RGB",
+      "Cable": "Braided USB",
+      "Weight": "900g"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Cordless Vacuum Cleaner",
+    "image": "https://images.pexels.com/photos/38325/vacuum-cleaner-carpet-cleaner-housework-housekeeping-38325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Clean your home effortlessly with our lightweight cordless vacuum. Features powerful suction, HEPA filtration, and long battery life.",
+    "brand": "CleanSweep",
+    "category": "Home Appliances",
+    "price": 129.99,
+    "countInStock": 12,
+    "rating": 4.4,
+    "numReviews": 41,
+    "discount": 10,
+    "featured": true,
+    "features": [
+      "Powerful Suction",
+      "HEPA Filtration",
+      "Lightweight Design",
+      "Long Battery Life",
+      "Multiple Attachments",
+      "Easy Empty Dustbin"
+    ],
+    "specifications": {
+      "Battery Life": "60 minutes",
+      "Weight": "2kg",
+      "Dustbin Capacity": "0.6L",
+      "Noise Level": "65dB",
+      "Warranty": "2 years"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
     "name": "Portable Bluetooth Speaker",
     "image": "https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Compact and powerful Bluetooth speaker with deep bass, waterproof design, and 12 hours of playtime.",
-    "brand": "BeatBox",
+    "description": "Take your music anywhere with our portable Bluetooth speaker. Waterproof, shockproof, and delivers deep bass.",
+    "brand": "SoundGo",
     "category": "Electronics",
-    "price": 49.99,
-    "countInStock": 40,
-    "rating": 4.6,
-    "numReviews": 78,
-    "discount": 10,
-    "featured": false,
-    "features": [
-      "Deep bass",
-      "IPX7 waterproof",
-      "12-hour playtime",
-      "Bluetooth 5.0",
-      "Built-in microphone"
-    ],
-    "specifications": {
-      "Output Power": "10W",
-      "Battery Life": "12 hours",
-      "Weight": "350g",
-      "Connectivity": "Bluetooth 5.0, AUX",
-      "Waterproof": "IPX7"
-    }
-  },
-  {
-    "name": "Stainless Steel Travel Mug",
-    "image": "https://images.pexels.com/photos/414555/pexels-photo-414555.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Keep your drinks hot or cold for hours with this double-walled stainless steel travel mug. Leak-proof lid and fits most cup holders.",
-    "brand": "ThermoSip",
-    "category": "Home & Kitchen",
-    "price": 19.99,
-    "countInStock": 60,
-    "rating": 4.8,
-    "numReviews": 150,
-    "discount": 0,
-    "featured": true,
-    "features": [
-      "Double-walled insulation",
-      "Leak-proof lid",
-      "Fits cup holders",
-      "BPA-free",
-      "Dishwasher safe"
-    ],
-    "specifications": {
-      "Capacity": "16 oz",
-      "Material": "Stainless steel",
-      "Insulation": "Double-walled",
-      "Weight": "300g",
-      "Color Options": "Black, Silver, Blue"
-    }
-  },
-  {
-    "name": "Cordless Handheld Vacuum Cleaner",
-    "image": "https://images.pexels.com/photos/38325/vacuum-cleaner-carpet-cleaner-housework-housekeeping-38325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Lightweight cordless vacuum for quick cleanups. Features powerful suction, washable filter, and up to 25 minutes of runtime.",
-    "brand": "CleanPro",
-    "category": "Home Appliances",
-    "price": 79.99,
-    "countInStock": 22,
-    "rating": 4.3,
-    "numReviews": 41,
-    "discount": 12,
-    "featured": false,
-    "features": [
-      "Cordless design",
-      "Washable filter",
-      "Powerful suction",
-      "Lightweight",
-      "25-minute runtime"
-    ],
-    "specifications": {
-      "Battery": "2200mAh Li-ion",
-      "Weight": "1.2kg",
-      "Dustbin Capacity": "0.5L",
-      "Noise Level": "70dB",
-      "Accessories": "Crevice tool, brush"
-    }
-  },
-  {
-    "name": "Adjustable Standing Desk Converter",
-    "image": "https://images.pexels.com/photos/245156/pexels-photo-245156.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Transform your workspace with this adjustable standing desk converter. Easy height adjustment and spacious surface for monitors and laptops.",
-    "brand": "FlexiWork",
-    "category": "Office Supplies",
-    "price": 129.99,
-    "countInStock": 15,
-    "rating": 4.5,
-    "numReviews": 53,
-    "discount": 8,
-    "featured": true,
-    "features": [
-      "Easy height adjustment",
-      "Spacious surface",
-      "Sturdy construction",
-      "Non-slip base",
-      "Supports dual monitors"
-    ],
-    "specifications": {
-      "Surface Area": "32\" x 20\"",
-      "Height Range": "5\" - 20\"",
-      "Weight Capacity": "33 lbs",
-      "Material": "Steel, MDF",
-      "Color": "Black"
-    }
-  },
-  {
-    "name": "Electric Kettle with Temperature Control",
-    "image": "https://images.pexels.com/photos/159054/kettle-water-boil-boiling-159054.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Boil water quickly and precisely with this electric kettle featuring temperature presets, keep-warm function, and auto shut-off.",
-    "brand": "BrewMaster",
-    "category": "Home Appliances",
     "price": 39.99,
-    "countInStock": 30,
-    "rating": 4.6,
-    "numReviews": 67,
-    "discount": 10,
+    "countInStock": 40,
+    "rating": 4.1,
+    "numReviews": 29,
+    "discount": 18,
     "featured": false,
     "features": [
-      "Temperature presets",
-      "Keep-warm function",
-      "Auto shut-off",
-      "1.7L capacity",
-      "Stainless steel"
+      "Waterproof IPX7",
+      "Shockproof Design",
+      "Deep Bass",
+      "Bluetooth 5.1",
+      "12-hour Playtime",
+      "Built-in Microphone"
     ],
     "specifications": {
-      "Capacity": "1.7L",
-      "Power": "1500W",
-      "Material": "Stainless steel",
-      "Cord Length": "27 inches",
-      "Weight": "1.1kg"
-    }
+      "Output Power": "20W",
+      "Battery Life": "12 hours",
+      "Weight": "500g",
+      "Bluetooth Range": "30m",
+      "Warranty": "1 year"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
-    "name": "Yoga Mat with Carrying Strap",
-    "image": "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "Non-slip yoga mat with extra cushioning for comfort. Includes a carrying strap for easy transport to the gym or studio.",
-    "brand": "ZenFlex",
-    "category": "Sports & Outdoors",
-    "price": 24.99,
-    "countInStock": 45,
-    "rating": 4.9,
-    "numReviews": 210,
-    "discount": 0,
+    "name": "Stainless Steel Air Fryer",
+    "image": "https://images.pexels.com/photos/461382/pexels-photo-461382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Cook healthy meals with less oil using our stainless steel air fryer. Features digital controls, multiple presets, and easy cleaning.",
+    "brand": "AirChef",
+    "category": "Home Appliances",
+    "price": 119.99,
+    "countInStock": 18,
+    "rating": 4.5,
+    "numReviews": 36,
+    "discount": 14,
     "featured": true,
     "features": [
-      "Non-slip surface",
-      "Extra cushioning",
-      "Lightweight",
-      "Carrying strap included",
-      "Eco-friendly material"
+      "Digital Controls",
+      "Multiple Cooking Presets",
+      "Easy Cleaning",
+      "Rapid Air Technology",
+      "Large Capacity Basket",
+      "Cool Touch Handle"
     ],
     "specifications": {
-      "Dimensions": "72\" x 24\" x 0.25\"",
-      "Material": "TPE",
-      "Weight": "900g",
-      "Color Options": "Purple, Green, Blue",
-      "Care": "Hand wash"
-    }
+      "Capacity": "5.5L",
+      "Power": "1500W",
+      "Weight": "4kg",
+      "Voltage": "220V",
+      "Warranty": "2 years"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   },
   {
-    "name": "USB-C Fast Charging Power Bank 20000mAh",
-    "image": "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "description":
-      "High-capacity power bank with USB-C fast charging. Charge multiple devices simultaneously and stay powered on the go.",
-    "brand": "ChargePro",
+    "name": "Noise Cancelling Earbuds",
+    "image": "https://images.pexels.com/photos/373945/pexels-photo-373945.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Enjoy music on the go with our noise cancelling earbuds. Features touch controls, wireless charging, and sweat resistance.",
+    "brand": "TunePods",
     "category": "Electronics",
-    "price": 34.99,
-    "countInStock": 38,
-    "rating": 4.4,
-    "numReviews": 95,
-    "discount": 7,
+    "price": 59.99,
+    "countInStock": 22,
+    "rating": 4.0,
+    "numReviews": 19,
+    "discount": 9,
     "featured": false,
     "features": [
-      "20000mAh capacity",
-      "USB-C fast charging",
-      "Dual USB output",
-      "LED battery indicator",
-      "Compact design"
+      "Active Noise Cancelling",
+      "Touch Controls",
+      "Wireless Charging",
+      "Sweat Resistant",
+      "Compact Charging Case",
+      "Bluetooth 5.2"
     ],
     "specifications": {
-      "Capacity": "20000mAh",
-      "Input": "USB-C, Micro-USB",
-      "Output": "2x USB-A, 1x USB-C",
-      "Weight": "410g",
-      "Dimensions": "6.2\" x 2.9\" x 0.8\""
-    }
+      "Battery Life": "8 hours",
+      "Charging Time": "1.5 hours",
+      "Weight": "60g",
+      "Water Resistance": "IPX5",
+      "Warranty": "1 year"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Ultra Slim Laptop",
+    "image": "https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Boost your productivity with our ultra slim laptop. Features fast SSD storage, long battery life, and a vibrant display.",
+    "brand": "TechLite",
+    "category": "Computers",
+    "price": 899.99,
+    "countInStock": 6,
+    "rating": 4.9,
+    "numReviews": 67,
+    "discount": 7,
+    "featured": true,
+    "features": [
+      "Ultra Slim Design",
+      "Fast SSD Storage",
+      "Long Battery Life",
+      "Vibrant Full HD Display",
+      "Backlit Keyboard",
+      "Lightweight Build"
+    ],
+    "specifications": {
+      "Processor": "Intel i7",
+      "RAM": "16GB",
+      "Storage": "512GB SSD",
+      "Display": "14-inch FHD",
+      "Weight": "1.2kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Smart Air Purifier",
+    "image": "https://images.pexels.com/photos/3952232/pexels-photo-3952232.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Breathe cleaner air with our smart air purifier. Features HEPA filtration, real-time air quality monitoring, and app control.",
+    "brand": "PureBreathe",
+    "category": "Home Appliances",
+    "price": 159.99,
+    "countInStock": 9,
+    "rating": 4.6,
+    "numReviews": 24,
+    "discount": 11,
+    "featured": false,
+    "features": [
+      "HEPA Filtration",
+      "Real-Time Air Quality Monitoring",
+      "App Control",
+      "Quiet Operation",
+      "Filter Replacement Indicator",
+      "Child Lock"
+    ],
+    "specifications": {
+      "Coverage Area": "40m²",
+      "Noise Level": "30dB",
+      "Weight": "3.5kg",
+      "Power": "40W",
+      "Warranty": "2 years"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
   }
 ]

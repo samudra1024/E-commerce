@@ -94,12 +94,12 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2 text-gray-300" />
-                <span className="text-gray-300">(123) 456-7890</span>
+                <span className="text-gray-300">9845227552</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-gray-300" />
                 <a href="mailto:info@shopease.com" className="text-gray-300 hover:text-white transition-colors">
-                  info@shopease.com
+                  samudrahosmat@gmail.com
                 </a>
               </li>
             </ul>
@@ -110,7 +110,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="bg-gray-900 py-4">
         <div className="container mx-auto px-4 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} ShopEase. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ShopEase Samudra s hosmata. All rights reserved.</p>
         </div>
       </div>
     </footer>

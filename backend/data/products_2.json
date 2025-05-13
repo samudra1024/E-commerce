@@ -1,0 +1,262 @@
+[
+  {
+    "name": "Electric Guitar",
+    "image": "https://images.pexels.com/photos/164936/pexels-photo-164936.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "High-quality electric guitar with a classic design, perfect for beginners and professionals.",
+    "brand": "StratoSound",
+    "category": "Musical Instruments",
+    "price": 349.99,
+    "countInStock": 7,
+    "rating": 4.7,
+    "numReviews": 21,
+    "discount": 12,
+    "featured": true,
+    "features": [
+      "Solid wood body",
+      "Maple neck",
+      "Single-coil pickups",
+      "5-way selector switch",
+      "Tremolo bridge"
+    ],
+    "specifications": {
+      "Body": "Alder",
+      "Neck": "Maple",
+      "Frets": 22,
+      "Pickups": "3 Single-coil",
+      "Weight": "3.5kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Espresso Coffee Maker",
+    "image": "https://images.pexels.com/photos/302902/pexels-photo-302902.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Brew rich and flavorful espresso at home with this compact coffee maker.",
+    "brand": "BrewMaster",
+    "category": "Kitchen Appliances",
+    "price": 89.99,
+    "countInStock": 14,
+    "rating": 4.5,
+    "numReviews": 34,
+    "discount": 10,
+    "featured": false,
+    "features": [
+      "15-bar pressure pump",
+      "Removable water tank",
+      "Steam wand for frothing",
+      "Compact design"
+    ],
+    "specifications": {
+      "Power": "1200W",
+      "Capacity": "1.2L",
+      "Material": "Stainless Steel",
+      "Weight": "2.8kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Mountain Bike",
+    "image": "https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Durable mountain bike designed for off-road adventures and city commutes.",
+    "brand": "TrailBlazer",
+    "category": "Sports",
+    "price": 499.99,
+    "countInStock": 5,
+    "rating": 4.8,
+    "numReviews": 18,
+    "discount": 15,
+    "featured": true,
+    "features": [
+      "Aluminum frame",
+      "21-speed gear system",
+      "Front suspension fork",
+      "Disc brakes"
+    ],
+    "specifications": {
+      "Frame": "Aluminum",
+      "Gears": 21,
+      "Brakes": "Disc",
+      "Wheel Size": "27.5 inches",
+      "Weight": "14kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Acoustic Drum Set",
+    "image": "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Complete 5-piece acoustic drum set for aspiring drummers and professionals.",
+    "brand": "RhythmPro",
+    "category": "Musical Instruments",
+    "price": 699.99,
+    "countInStock": 3,
+    "rating": 4.6,
+    "numReviews": 12,
+    "discount": 8,
+    "featured": false,
+    "features": [
+      "5-piece drum kit",
+      "Cymbals included",
+      "Adjustable throne",
+      "High-quality drum heads"
+    ],
+    "specifications": {
+      "Shell Material": "Poplar",
+      "Number of Pieces": 5,
+      "Cymbals": "Hi-hat, Crash, Ride",
+      "Weight": "22kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Digital SLR Camera",
+    "image": "https://images.pexels.com/photos/51383/pexels-photo-51383.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Capture stunning photos and videos with this high-resolution DSLR camera.",
+    "brand": "PhotoGenic",
+    "category": "Electronics",
+    "price": 799.99,
+    "countInStock": 9,
+    "rating": 4.9,
+    "numReviews": 40,
+    "discount": 13,
+    "featured": true,
+    "features": [
+      "24MP CMOS sensor",
+      "Full HD video recording",
+      "Interchangeable lenses",
+      "Wi-Fi connectivity"
+    ],
+    "specifications": {
+      "Sensor": "24MP CMOS",
+      "Video": "1080p Full HD",
+      "Lens Mount": "EF/EF-S",
+      "Weight": "1.1kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Yoga Mat",
+    "image": "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Non-slip yoga mat with extra cushioning for comfort and stability.",
+    "brand": "ZenFlex",
+    "category": "Fitness",
+    "price": 29.99,
+    "countInStock": 25,
+    "rating": 4.3,
+    "numReviews": 15,
+    "discount": 5,
+    "featured": false,
+    "features": [
+      "Non-slip surface",
+      "Extra thick cushioning",
+      "Lightweight and portable",
+      "Eco-friendly material"
+    ],
+    "specifications": {
+      "Material": "TPE",
+      "Thickness": "6mm",
+      "Dimensions": "183x61cm",
+      "Weight": "1kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Smart Refrigerator",
+    "image": "https://images.pexels.com/photos/373548/pexels-photo-373548.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Energy-efficient smart refrigerator with touch display and Wi-Fi connectivity.",
+    "brand": "CoolTech",
+    "category": "Home Appliances",
+    "price": 1199.99,
+    "countInStock": 4,
+    "rating": 4.7,
+    "numReviews": 22,
+    "discount": 18,
+    "featured": true,
+    "features": [
+      "Touchscreen display",
+      "Wi-Fi enabled",
+      "Frost-free technology",
+      "Adjustable shelves"
+    ],
+    "specifications": {
+      "Capacity": "500L",
+      "Energy Rating": "A++",
+      "Dimensions": "180x70x70cm",
+      "Weight": "65kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Electric Kettle",
+    "image": "https://images.pexels.com/photos/159054/kettle-electric-kitchen-appliance-159054.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "Fast-boil electric kettle with auto shut-off and stainless steel body.",
+    "brand": "QuickBoil",
+    "category": "Kitchen Appliances",
+    "price": 24.99,
+    "countInStock": 30,
+    "rating": 4.4,
+    "numReviews": 19,
+    "discount": 7,
+    "featured": false,
+    "features": [
+      "Rapid boil technology",
+      "Auto shut-off",
+      "360-degree swivel base",
+      "Stainless steel body"
+    ],
+    "specifications": {
+      "Capacity": "1.7L",
+      "Power": "2200W",
+      "Weight": "1.2kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Smartphone Gimbal",
+    "image": "https://images.pexels.com/photos/442573/pexels-photo-442573.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "3-axis handheld gimbal stabilizer for smooth smartphone video recording.",
+    "brand": "SteadyShot",
+    "category": "Electronics",
+    "price": 119.99,
+    "countInStock": 11,
+    "rating": 4.5,
+    "numReviews": 27,
+    "discount": 10,
+    "featured": true,
+    "features": [
+      "3-axis stabilization",
+      "Rechargeable battery",
+      "Lightweight design",
+      "Bluetooth control"
+    ],
+    "specifications": {
+      "Battery Life": "12 hours",
+      "Weight": "430g",
+      "Compatibility": "iOS & Android"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  },
+  {
+    "name": "Air Purifier",
+    "image": "https://images.pexels.com/photos/3952232/pexels-photo-3952232.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "description": "HEPA air purifier for clean and fresh indoor air, suitable for home and office.",
+    "brand": "PureAir",
+    "category": "Home Appliances",
+    "price": 139.99,
+    "countInStock": 8,
+    "rating": 4.6,
+    "numReviews": 16,
+    "discount": 11,
+    "featured": false,
+    "features": [
+      "HEPA filtration",
+      "Quiet operation",
+      "Filter replacement indicator",
+      "Multiple fan speeds"
+    ],
+    "specifications": {
+      "Coverage Area": "35m²",
+      "Noise Level": "28dB",
+      "Weight": "3.2kg"
+    },
+    "user": { "$oid": "682354bbc22ffd8ede85137a" }
+  }
+]
