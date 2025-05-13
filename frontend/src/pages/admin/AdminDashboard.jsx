@@ -12,13 +12,14 @@ const AdminDashboard = () => {
     recentOrders: [],
     lowStockProducts: [],
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const statsRes = await axiosInstance.get("/api/users/admin/stats");
+        console.log('This is the value : ',statsRes.data)
         setStats(statsRes.data);
       } catch (error) {
         console.error("Error fetching stats:", error);

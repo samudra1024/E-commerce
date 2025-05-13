@@ -13,8 +13,9 @@ import {
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  let a = 0
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,9 +24,10 @@ const HomePage = () => {
           "/api/products?featured=true&limit=4"
         );
         console.log(featuredRes.data.products)
+        console.log(featuredRes.data);
         setFeaturedProducts(featuredRes.data.products);
-        console.log('This featureProducts : ',featuredProducts)
-
+        console.log('This featureProducts : ', a+1,' ',featuredProducts)
+        
         const newArrivalsRes = await axiosInstance.get(
           "/api/products?sort=-createdAt&limit=4"
         );
@@ -34,9 +36,10 @@ const HomePage = () => {
         console.error("Error fetching products:", error);
       }
     };
-
+    
     fetchProducts();
   }, []);
+  console.log('This featureProducts : ', a+1,' ',featuredProducts)
 
   return (
     <div>
@@ -199,12 +202,12 @@ const HomePage = () => {
             </Link>
           </div>
 
-          {featuredProducts[0] === undefined ? (
+          {featuredProducts === undefined ? (
             <p>Products should be displayed here</p>
           ) : (
             // console.log("This the actauly", featuredProducts[0]);
             <ProductList
-              products={featuredProducts[0].products}
+              products={featuredProducts}
               loading={loading}
               error={error}
             />
@@ -277,12 +280,12 @@ const HomePage = () => {
               View All <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
-          {newArrivals[0] === undefined ? (
+          {newArrivals === undefined ? (
             <p>Products should be displayed here</p>
           ) : (
             // console.log("This the actauly", newArrivals[0]);
             <ProductList
-              products={newArrivals[0].products}
+              products={newArrivals}
               loading={loading}
               error={error}
             />

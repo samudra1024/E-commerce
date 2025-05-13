@@ -31,8 +31,9 @@ const ProductList = (props) => {
       </div>
     );
   }
+  console.log('This is the product length : ',props.products)
 
-  if (props.products.length === 0) {
+  if (props.lengths === 0) {
     return (
       <div className="text-center py-12">
         <h3 className="text-xl font-semibold mb-2">No products found</h3>

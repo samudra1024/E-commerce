@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import axios from 'axios';
+import axiosInstance from '../config/axios';
 import { Package, Truck, CheckCircle, AlertCircle, Clock, XCircle } from 'lucide-react';
 
 const OrdersPage = () => {
@@ -23,7 +23,7 @@ const OrdersPage = () => {
 
       try {
         const token = getToken ? getToken() : null;
-        const response = await axios.get('/api/orders/myorders', {
+        const response = await axiosInstance.get('/api/orders/myorders', {
           headers: token ? { Authorization: token } : {},
         });
         setOrders(response.data || []);
@@ -55,7 +55,7 @@ const OrdersPage = () => {
 
     try {
       const token = getToken ? getToken() : null;
-      await axios.put(`/api/orders/${orderId}/cancel`, {}, {
+      await axiosInstance.put(`/api/orders/${orderId}/cancel`, {}, {
         headers: token ? { Authorization: token } : {},
       });
       // Update the order status in the UI

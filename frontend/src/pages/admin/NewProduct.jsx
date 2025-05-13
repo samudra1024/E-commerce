@@ -99,6 +99,8 @@ const CreateProductForm = () => {
     }
 
     setErrors(newErrors);
+    // console.log('This is the contents of errors : ' , errors)
+    // console.log('This is the length of errors : ' , Object.keys(newErrors).length)
     return Object.keys(newErrors).length === 0;
   };
 
