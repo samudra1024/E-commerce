@@ -1,8 +1,8 @@
-import axios from "axios";
+import axiosInstance from "../config/axios";
 
 // Fetch product by ID (no authentication required)
 export const getProductById = async (productId) => {
-  const response = await axios.get(`/api/products/${productId}`);
+  const response = await axiosInstance.get(`/api/products/${productId}`);
   return response.data;
 };
 
@@ -11,7 +11,7 @@ export const updateProduct = async (productId, productData, token, isAdmin) => {
   if (!isAdmin) {
     throw new Error("Unauthorized, not admin");
   }
-  const response = await axios.put(
+  const response = await axiosInstance.put(
     `/api/products/${productId}`,
     productData,
     {
@@ -25,7 +25,7 @@ export const updateProduct = async (productId, productData, token, isAdmin) => {
 
 // Create product review (requires user token)
 export const createProductReview = async (productId, reviewData, token) => {
-  const response = await axios.post(
+  const response = await axiosInstance.post(
     `/api/products/${productId}/reviews`,
     reviewData,
     {
