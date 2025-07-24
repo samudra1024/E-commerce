@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import colors from 'colors';
 import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
