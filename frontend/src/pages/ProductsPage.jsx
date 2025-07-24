@@ -592,8 +592,8 @@ const ProductsPage = () => {
 
                 {(priceRange.min || priceRange.max) && (
                   <div className="inline-flex items-center bg-purple-100 text-purple-800 text-sm rounded-full px-3 py-1">
-                    Price: {priceRange.min ? `$${priceRange.min}` : "$0"} -{" "}
-                    {priceRange.max ? `$${priceRange.max}` : "∞"}
+                    Price: {priceRange.min ? `₹${priceRange.min}` : "₹0"} -{" "}
+                    {priceRange.max ? `₹${priceRange.max}` : "∞"}
                     <button
                       onClick={() => setPriceRange({ min: "", max: "" })}
                       className="ml-1 focus:outline-none"

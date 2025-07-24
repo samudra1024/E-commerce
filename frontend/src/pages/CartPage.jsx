@@ -82,16 +82,16 @@ const CartPage = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Subtotal</span>
-                    <span className="font-medium">${subtotal.toFixed(2)}</span>
+                    <span className="font-medium">₹{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Tax (10%)</span>
-                    <span className="font-medium">${tax}</span>
+                    <span className="font-medium">₹{tax}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
                     <span className="font-medium">
-                      {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
+                      {shipping === 0 ? 'Free' : `₹${shipping.toFixed(2)}`}
                     </span>
                   </div>
                   
@@ -99,7 +99,7 @@ const CartPage = () => {
                     <div className="bg-blue-50 border border-blue-100 rounded-md p-3 flex items-start">
                       <AlertCircle className="h-5 w-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-blue-700">
-                        Add ${(100 - subtotal).toFixed(2)} more to qualify for free shipping!
+                        Add ₹{(100 - subtotal).toFixed(2)} more to qualify for free shipping!
                       </p>
                     </div>
                   )}
@@ -107,7 +107,7 @@ const CartPage = () => {
                   <div className="border-t border-gray-200 pt-4 mt-4">
                     <div className="flex justify-between items-center">
                       <span className="font-semibold text-lg">Total</span>
-                      <span className="font-bold text-xl">${orderTotal}</span>
+                      <span className="font-bold text-xl">₹{orderTotal}</span>
                     </div>
                   </div>
                 </div>

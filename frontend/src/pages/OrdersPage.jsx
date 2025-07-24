@@ -202,7 +202,7 @@ const OrdersPage = () => {
                           Quantity: {item.quantity}
                         </p>
                         <p className="mt-1 text-sm font-medium text-gray-900">
-                          {(item.price * item.quantity)?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                          {(item.price * item.quantity)?.toLocaleString(undefined, { style: 'currency', currency: 'INR' })}
                         </p>
                       </div>
                     </div>
@@ -215,25 +215,25 @@ const OrdersPage = () => {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Subtotal</span>
                     <span className="font-medium">
-                      {order.itemsPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                      {order.itemsPrice?.toLocaleString(undefined, { style: 'currency', currency: 'INR' }) || '₹0.00'}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm mt-2">
                     <span className="text-gray-600">Shipping</span>
                     <span className="font-medium">
-                      {order.shippingPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                      {order.shippingPrice?.toLocaleString(undefined, { style: 'currency', currency: 'INR' }) || '₹0.00'}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm mt-2">
                     <span className="text-gray-600">Tax</span>
                     <span className="font-medium">
-                      {order.taxPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                      {order.taxPrice?.toLocaleString(undefined, { style: 'currency', currency: 'INR' }) || '₹0.00'}
                     </span>
                   </div>
                   <div className="flex justify-between text-base font-medium mt-4 pt-4 border-t border-gray-200">
                     <span className="text-gray-900">Total</span>
                     <span className="text-gray-900">
-                      {order.totalPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' }) || '$0.00'}
+                      {order.totalPrice?.toLocaleString(undefined, { style: 'currency', currency: 'INR' }) || '₹0.00'}
                     </span>
                   </div>
                 </div>

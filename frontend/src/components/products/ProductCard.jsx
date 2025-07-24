@@ -85,14 +85,14 @@ const ProductCard = ({ product }) => {
           {product.discount > 0 ? (
             <>
               <span className="text-lg font-bold text-blue-600">
-                ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                ₹{(product.price * (1 - product.discount / 100)).toFixed(2)}
               </span>
               <span className="text-sm text-gray-500 line-through ml-2">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </span>
             </>
           ) : (
-            <span className="text-lg font-bold text-blue-600">${product.price.toFixed(2)}</span>
+            <span className="text-lg font-bold text-blue-600">₹{product.price.toFixed(2)}</span>
           )}
         </div>
         

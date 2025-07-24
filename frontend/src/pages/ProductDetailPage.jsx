@@ -298,10 +298,10 @@ const ProductDetailPage = () => {
             {product.discount > 0 ? (
               <div className="flex items-center">
                 <span className="text-3xl font-bold text-blue-600 mr-3">
-                  ${discountedPrice}
+                  ₹{discountedPrice}
                 </span>
                 <span className="text-xl text-gray-500 line-through">
-                  ${product.price.toFixed(2)}
+                  ₹{product.price.toFixed(2)}
                 </span>
                 <span className="ml-3 bg-orange-100 text-orange-800 font-medium text-sm px-2.5 py-0.5 rounded">
                   {product.discount}% OFF
@@ -309,7 +309,7 @@ const ProductDetailPage = () => {
               </div>
             ) : (
               <span className="text-3xl font-bold text-blue-600">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </span>
             )}
           </div>
@@ -698,19 +698,19 @@ const ProductDetailPage = () => {
                     {product.discount > 0 ? (
                       <>
                         <span className="text-lg font-bold text-blue-600">
-                          $
+                          ₹
                           {(
                             product.price *
                             (1 - product.discount / 100)
                           ).toFixed(2)}
                         </span>
                         <span className="text-sm text-gray-500 line-through ml-2">
-                          ${product.price.toFixed(2)}
+                          ₹{product.price.toFixed(2)}
                         </span>
                       </>
                     ) : (
                       <span className="text-lg font-bold text-blue-600">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </span>
                     )}
                   </div>
