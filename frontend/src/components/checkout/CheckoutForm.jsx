@@ -352,15 +352,15 @@ const CheckoutForm = () => {
                 <div className="flex items-center">
                   <input
                     type="radio"
-                    id="paypal"
+                    id="UPI"
                     name="paymentMethod"
-                    value="paypal"
-                    checked={formData.paymentMethod === "paypal"}
+                    value="UPI"
+                    checked={formData.paymentMethod === "UPI"}
                     onChange={handleChange}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500"
                   />
                   <label
-                    htmlFor="paypal"
+                    htmlFor="UPI"
                     className="ml-2 text-sm font-medium text-gray-700"
                   >
                     PayPal
