@@ -363,7 +363,7 @@ const CheckoutForm = () => {
                     htmlFor="UPI"
                     className="ml-2 text-sm font-medium text-gray-700"
                   >
-                    PayPal
+                    UPI
                   </label>
                 </div>
               </div>

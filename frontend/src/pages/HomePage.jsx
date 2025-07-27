@@ -261,7 +261,7 @@ const HomePage = () => {
               </h3>
               <p className="text-gray-600">
                 Choose from various payment methods including credit cards and
-                PayPal.
+                UPI.
               </p>
             </div>
           </div>
