@@ -355,7 +355,7 @@ const CheckoutForm = () => {
                     id="cashOnDelivery"
                     name="paymentMethod"
                     value="cashOnDelivery"
-                    checked={formData.paymentMethod === "paypal"}
+                    checked={formData.paymentMethod === "cashOnDelivery"}
                     onChange={handleChange}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500"
                   />
