@@ -29,7 +29,7 @@ This is a full-featured e-commerce website enabling users to browse products, ad
 - Admin panel for managing products and orders
 
 ## Installation
-1. Clone the repository: git clone [https://github.com/your-username/your-ecommerce-repo.git](https://github.com/samudra1024/E-commerce.git)
+1. Clone the repository: git clone (https://github.com/samudra1024/E-commerce.git)
 2. Navigate into the project directory:
    cd your-ecommerce-repo
 3. Install dependencies for frontend and backend:
