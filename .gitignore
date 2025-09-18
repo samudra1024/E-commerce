@@ -136,4 +136,4 @@ dist
 .pnp.*
 
 #bolt
-./bolt
+bolt/
