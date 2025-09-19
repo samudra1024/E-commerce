@@ -1,9 +1,5 @@
 # E-Commerce Website
 
-<p align="center">
-  <img src="https://images.unsplash.com/photo-1515165562835-c41746248156?auto=format&fit=crop&w=1400&q=80" width="100%" alt="E-commerce background banner" />
-</p>
-
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Technologies Used](#technologies-used)
